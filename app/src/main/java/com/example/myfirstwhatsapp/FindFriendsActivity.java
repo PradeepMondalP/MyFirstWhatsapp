@@ -117,7 +117,7 @@ public class FindFriendsActivity extends AppCompatActivity {
     private void displayAllFriends()
     {
 
-        Toast.makeText(this, "searching..", Toast.LENGTH_LONG).show();
+        userRef.keepSynced(true);
 
         FirebaseRecyclerAdapter<Contacts ,FindFriendHolder> recyclerAdapter
                 = new FirebaseRecyclerAdapter<Contacts, FindFriendHolder>

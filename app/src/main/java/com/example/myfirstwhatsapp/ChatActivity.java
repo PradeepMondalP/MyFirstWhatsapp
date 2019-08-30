@@ -177,6 +177,8 @@ public class ChatActivity extends AppCompatActivity {
             DatabaseReference rootRef2 =  rootRef.child("Messages")
                     .child(sendUserID).child(receiverUserID);
 
+            rootRef2.keepSynced(true);
+
             rootRef2.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s)

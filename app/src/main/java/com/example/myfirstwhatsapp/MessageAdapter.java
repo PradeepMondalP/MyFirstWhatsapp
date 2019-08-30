@@ -30,7 +30,6 @@ public class MessageAdapter extends RecyclerView.Adapter <MessageAdapter.Message
 {
     private List<MyMessages> userMessageList;
     private FirebaseAuth mAuth;
-    private DatabaseReference userDatabaseRef;
 
     public MessageAdapter(List<MyMessages> userMessageList) {
         this.userMessageList = userMessageList;

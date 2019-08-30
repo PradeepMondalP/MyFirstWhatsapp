@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -68,6 +70,8 @@ public class ContactsFragment extends Fragment {
 
 
     private void viewAllFriends() {
+
+        contactsRef.keepSynced(true);
 
         FirebaseRecyclerAdapter<Contacts, ContactsViewHolder> obj =
                 new FirebaseRecyclerAdapter<Contacts, ContactsViewHolder>
@@ -164,9 +168,19 @@ public class ContactsFragment extends Fragment {
             userNamee.setText(fullName);
         }
 
-        public void setImages(Context ctx, String images) {
+        public void setImages(final Context ctx,  final String images) {
 
-            Picasso.with(ctx).load(images).placeholder(R.drawable.profile).into(profileImagee);
+            Picasso.with(ctx).load(images).networkPolicy(NetworkPolicy.OFFLINE)
+                    .into(profileImagee, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                        }
+
+                        @Override
+                        public void onError() {
+                            Picasso.with(ctx).load(images).into(profileImagee);
+                        }
+                    });
         }
 
     }

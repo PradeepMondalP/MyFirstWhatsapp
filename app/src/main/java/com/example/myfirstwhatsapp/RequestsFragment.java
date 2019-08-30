@@ -80,6 +80,8 @@ public class RequestsFragment extends Fragment {
 
     private void displayRequests() {
 
+        chatRequestsRef.keepSynced(true);
+
         FirebaseRecyclerAdapter<Contacts ,RequestsHolder> obj =
                 new FirebaseRecyclerAdapter<Contacts, RequestsHolder>
                         (

@@ -9,7 +9,8 @@ import com.squareup.picasso.Picasso;
 public class OfflineAccessPurpose extends Application {
 
     @Override
-    public void onCreate() {
+    public void onCreate()
+    {
         super.onCreate();
 
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
