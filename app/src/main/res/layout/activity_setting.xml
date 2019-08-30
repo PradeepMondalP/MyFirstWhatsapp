@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingActivity">
+
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/id_settingAct_profile_image"
+        android:layout_width="250dp"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/profile"
+        android:layout_marginBottom="4dp"
+        android:layout_height="250dp" />
+
+
+    <EditText
+        android:id="@+id/id_settingAct_full_name"
+        android:layout_width="match_parent"
+        android:padding="6dp"
+        android:textStyle="bold"
+        android:layout_marginStart="15dp"
+        android:textAlignment="center"
+        android:drawableStart="@drawable/edit_profile"
+        android:hint="profile name"
+        android:textColor="@color/colorPrimaryDark"
+        android:inputType="textMultiLine"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_below="@+id/id_settingAct_profile_image"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/id_settingAct_status"
+        android:layout_width="match_parent"
+        android:padding="6dp"
+        android:textStyle="bold"
+        android:layout_marginStart="15dp"
+        android:textAlignment="center"
+        android:drawableStart="@drawable/edit_status"
+        android:hint="Status"
+        android:textColor="@color/colorPrimaryDark"
+        android:inputType="textMultiLine"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_below="@+id/id_settingAct_full_name"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:id="@+id/id_settingAct_update_btn"
+        android:layout_width="match_parent"
+        android:padding="6dp"
+        android:textStyle="bold"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/small_background"
+        android:textAlignment="center"
+        android:hint="Status"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:inputType="textMultiLine"
+        android:layout_marginTop="10dp"
+        android:text="Update"
+        android:layout_marginEnd="15dp"
+        android:layout_below="@+id/id_settingAct_status"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <FrameLayout
+        android:id="@+id/id_frame_layout_1"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/message_profile_image_group_chat_x"
+                android:layout_width="40dp"
+                android:layout_margin="4dp"
+                android:src="@drawable/profile"
+                android:layout_height="50dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:background="@drawable/receiver_message_text_background"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/receiver_message_text_group_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_marginTop="2dp"
+                    android:paddingLeft="7dp"
+                    android:text="User Name "
+                    android:textColor="@android:color/black"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/receiver_message_text_group_chat_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="12dp"
+                    android:paddingLeft="5dp"
+                    android:text="All the messages"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/id_time_group_chat"
+                    android:layout_width="wrap_content"
+                    android:text="Time "
+                    android:layout_marginStart="30dp"
+                    android:paddingLeft="5dp"
+
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:id="@+id/id_frame_layout_2"
+        android:layout_marginStart="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+       android:layout_marginLeft="30dp"
+        android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:background="@drawable/sender_message_text_background"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/sender_message_text_groupchat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:paddingRight="12dp"
+                    android:paddingLeft="5dp"
+                    android:text="my messages"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/id_sender_time_groupchat"
+                    android:layout_width="wrap_content"
+                    android:text="Time "
+                    android:layout_marginStart="3dp"
+                    android:paddingLeft="5dp"
+                    android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+
+</RelativeLayout>

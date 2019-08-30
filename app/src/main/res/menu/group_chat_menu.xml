@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Group info"
+        android:id="@+id/id_group_info"/>
+
+    <item
+        android:title="Wallpaper"
+        android:id="@+id/id_group_wallpaper"/>
+
+    <item
+        android:title="Clear chat"
+        android:id="@+id/id_clear_chat"/>
+
+    <item
+        android:title="Exit group"
+        android:id="@+id/id_exit_group"/>
+
+    <item
+        android:title="more"
+        android:id="@+id/id_more_group"/>
+
+</menu>

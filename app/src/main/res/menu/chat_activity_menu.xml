@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="View Profile"
+        android:id="@+id/id_view_profile_chat_act_menu"/>
+
+    <item
+        android:title="Clear Chat"
+        android:id="@+id/id_clear_chat_chat_act_menu"/>
+
+    <item
+        android:title="Wallpaper"
+        android:id="@+id/id_wallpaper_chat_act_menu"/>
+
+</menu>
