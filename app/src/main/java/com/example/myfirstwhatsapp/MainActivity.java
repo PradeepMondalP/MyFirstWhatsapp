@@ -190,6 +190,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "setitng", Toast.LENGTH_SHORT).show();
                 break;
 
+            case R.id.id_notes:
+                 sendUserToSemisterSelectionActivity();
+                 break;
+
         }
         return true;
     }
@@ -308,6 +312,14 @@ public class MainActivity extends AppCompatActivity {
      //   obj.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(obj);
         finish();
+    }
+
+    public void sendUserToSemisterSelectionActivity()
+    {
+        Intent obj = new Intent(this , SemisterSelectionActivity.class);
+        //   obj.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(obj);
+
     }
 
 }
