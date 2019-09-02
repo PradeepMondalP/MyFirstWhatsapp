@@ -13,12 +13,42 @@
        android:id="@+id/id_branch_toolbar"
        layout="@layout/app_bar_layout"/>
 
+   <EditText
+       android:id="@+id/id_fileName"
+       android:layout_below="@+id/id_branch_toolbar"
+       android:layout_margin="10dp"
+       android:visibility="gone"
+       android:hint="  Enter file Name"
+       android:background="@drawable/input"
+       android:layout_width="match_parent"
+       android:padding="8dp"
+       android:layout_height="wrap_content"/>
+
+
+   <Button
+       android:id="@+id/id_upload_pdf_file"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="10dp"
+       android:visibility="gone"
+       android:layout_marginLeft="40dp"
+       android:layout_below="@+id/id_fileName"
+       android:layout_marginRight="40dp"
+       android:background="@drawable/small_background"
+       android:text="Upload"
+       android:padding="3dp"
+       android:shadowColor="@android:color/darker_gray"
+       android:textAppearance="?android:textAppearanceMedium"
+       android:textColor="@android:color/white"
+       android:textColorHint="@android:color/black" />
+
 
    <ListView
        android:id="@+id/id_selct_subj"
+       android:layout_margin="10dp"
        android:layout_width="match_parent"
        android:padding="10dp"
-       android:layout_below="@+id/id_branch_toolbar"
+       android:layout_below="@+id/id_upload_pdf_file"
        android:dividerHeight="2dp"
        android:layout_height="match_parent">
 

@@ -5,10 +5,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,9 +45,9 @@ import java.util.Map;
 
 public class CseBranchActivity extends AppCompatActivity {
 
-    private ImageButton myPDFfile;
-    private EditText pdfDescripTion;
-    private Button savePdfButtn;
+
+    private EditText pdfFileName;
+    private Button uploadPdfBtn;
     StorageReference storageRootReference;
     DatabaseReference rootRef , pdfRef;
 
@@ -58,7 +61,9 @@ public class CseBranchActivity extends AppCompatActivity {
     private ArrayAdapter<String> mAdapter;
     private ArrayList<UploadPDF> myArrayList = new ArrayList<>();
     private ArrayList myUniqueKeys = new ArrayList();
+
     private String[]fileName;
+    private String  userTypeFileName2;
 
 
     @Override
@@ -67,6 +72,24 @@ public class CseBranchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cse_branch);
 
         initialize();
+
+        uploadPdfBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+               String myFileName = pdfFileName.getText().toString().trim();
+               if(TextUtils.isEmpty(myFileName))
+               {
+                   pdfFileName.setError("must enter  a  name");
+                   return;
+               }
+               else
+               {
+                   userTypeFileName2 = myFileName;
+                   selectPdfFile();
+               }
+            }
+        });
 
           viewAllFiles();
 
@@ -79,21 +102,25 @@ public class CseBranchActivity extends AppCompatActivity {
 
                   String randomKey = myUniqueKeys.get(position).toString();
                   System.out.println("your id is  : "+  randomKey);
-
                   sendUserToPdfActivity(randomKey);
               }
           });
+
+
+
     }
 
     private void sendUserToPdfActivity(String randomKey) {
+
         Intent intent = new Intent(getApplicationContext() , PdfViewerActivity.class);
-        intent.putExtra("key" , randomKey);
+        intent.putExtra("key" , randomKey );
         startActivity(intent);
     }
 
     private void viewAllFiles() {
 
         pdfRef.keepSynced(true);
+
         pdfRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -106,13 +133,16 @@ public class CseBranchActivity extends AppCompatActivity {
                 }
 
                 fileName = new String[myArrayList.size()];
-                for(int i=0;i<fileName.length;i++)
-                    fileName[i] = myArrayList.get(i).getName();
 
-                mAdapter = new ArrayAdapter<String>(getApplicationContext() , android.R.layout.activity_list_item,
+                for(int i=0;i<fileName.length;i++){
+                    fileName[i] = myArrayList.get(i).getName();
+                }
+
+
+                mAdapter = new ArrayAdapter<String>(getApplicationContext() , android.R.layout.simple_list_item_1,
                      android.R.id.text1   ,fileName);
                 mListView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+                // mAdapter.notifyDataSetChanged();
 
             }
 
@@ -137,14 +167,14 @@ public class CseBranchActivity extends AppCompatActivity {
         if(requestCode==1 && resultCode==RESULT_OK && data.getData()!=null && data!=null)
         {
             pdfUri = data.getData();
-            uploadPdfFile(pdfUri);
+            uploadPdfFile(pdfUri  );
         }
 
     }
 
     private void uploadPdfFile(Uri pdfUri) {
 
-        StorageReference reference = storageRootReference.child("Files").child("pdf")
+        StorageReference reference = storageRootReference.child("PDF").child("Fifth Sem").child("CSE")
                 .child(System.currentTimeMillis() +".pdf");
 
         reference.putFile(pdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -157,12 +187,12 @@ public class CseBranchActivity extends AppCompatActivity {
                 pdfDownloadUrl = uri.getResult();
                 unikey = pdfRef.push().getKey();
 
-                UploadPDF uploadPDF = new UploadPDF("Bye" , pdfDownloadUrl.toString() , unikey);
+                UploadPDF uploadPDF = new UploadPDF(userTypeFileName2 , pdfDownloadUrl.toString() , unikey);
 
                 pdfRef.child(unikey).setValue(uploadPDF);
 
                 Toast.makeText(CseBranchActivity.this,
-                        "file uploaded ", Toast.LENGTH_SHORT).show();
+                        "opening..", Toast.LENGTH_SHORT).show();
                 mDialog.dismiss();
 
 
@@ -170,6 +200,9 @@ public class CseBranchActivity extends AppCompatActivity {
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+
+                uploadPdfBtn.setVisibility(View.GONE);
+                pdfFileName.setVisibility(View.GONE);
 
                 mDialog.setTitle("Loading...");
                 mDialog.show();
@@ -193,25 +226,30 @@ public class CseBranchActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.id_branch_menu_upload_file:
-                selectPdfFile();
+
+                pdfFileName.setVisibility(View.VISIBLE);
+                uploadPdfBtn.setVisibility(View.VISIBLE);
                 break;
-
-
         }
         return true;
     }
+
+
 
     private void initialize() {
 
 
         storageRootReference = FirebaseStorage.getInstance().getReference();
         rootRef = FirebaseDatabase.getInstance().getReference();
-        pdfRef = FirebaseDatabase.getInstance().getReference().child("PDF");
+        pdfRef = rootRef.child("PDF").child("Fifth Sem").child("CSE");
         mDialog = new ProgressDialog(this);
 
         mToolbar = (Toolbar)findViewById(R.id.id_branch_toolbar);
         setSupportActionBar(mToolbar);
 
         mListView = (ListView)findViewById(R.id.id_selct_subj);
+
+        pdfFileName = (EditText)findViewById(R.id.id_fileName);
+        uploadPdfBtn = (Button)findViewById(R.id.id_upload_pdf_file);
     }
 }
