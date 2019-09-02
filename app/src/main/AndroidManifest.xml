@@ -14,10 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".ViewPdfFileActivity"></activity>
-        <activity android:name=".branches.CseBranchActivity"
-            android:parentActivityName=".SemisterSelectionActivity"/>
+        <activity android:name=".pdfviewer.PdfViewerActivity"></activity>
+        <activity android:name=".ViewPdfFileActivity" />
+        <activity
+            android:name=".branches.CseBranchActivity"
+            android:parentActivityName=".SemisterSelectionActivity" />
         <activity android:name=".semister.FifthSemActivity" />
         <activity android:name=".SemisterSelectionActivity" />
         <activity

@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.myfirstwhatsapp.R;
+import com.example.myfirstwhatsapp.pdfviewer.PdfViewerActivity;
 import com.example.myfirstwhatsapp.staticclasses.UploadPDF;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -76,9 +77,18 @@ public class CseBranchActivity extends AppCompatActivity {
                   Toast.makeText(CseBranchActivity.this,
                           "you clicked "+ mListView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
 
-                  System.out.println("your id is  : "+ myUniqueKeys.get(position) );
+                  String randomKey = myUniqueKeys.get(position).toString();
+                  System.out.println("your id is  : "+  randomKey);
+
+                  sendUserToPdfActivity(randomKey);
               }
           });
+    }
+
+    private void sendUserToPdfActivity(String randomKey) {
+        Intent intent = new Intent(getApplicationContext() , PdfViewerActivity.class);
+        intent.putExtra("key" , randomKey);
+        startActivity(intent);
     }
 
     private void viewAllFiles() {
