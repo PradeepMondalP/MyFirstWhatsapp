@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3A7772</color>
     <color name="colorPrimaryDark">#005048</color>
     <color name="colorAccent">#E6E6E6</color>
     <color name="temp">#F4511E</color>
 
 
     <color name="white">#ffffff</color>
+    <color name="colorPrimary">#075E54</color>
+
+
+    <color name="common_border_color">#ffffff</color>
+    <color name="round_green">#0aea07</color>
+
+
+
+    // chat item
+    <color name="chat_time_color">#0aea07</color>
+    <color name="chat_view_separator">#2faaaaaa</color>
+
+    <color name="notification_color">#0288d1</color>
+    <color name="textColorPrimary">#212121</color>
+    <color name="textColorSecondary">#757575</color>
+    <color name="navfun">#FF6666</color>
+
+    <color name="colorPrimary2">#3F51B5</color>
+    <color name="colorPrimaryDark2">#303F9F</color>
+    <color name="colorAccent2">#FF4081</color>
+
+
+
+
 </resources>

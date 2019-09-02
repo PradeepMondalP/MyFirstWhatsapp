@@ -1,28 +1,43 @@
 package com.example.myfirstwhatsapp.branches;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.myfirstwhatsapp.R;
 import com.example.myfirstwhatsapp.staticclasses.UploadPDF;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CseBranchActivity extends AppCompatActivity {
 
@@ -35,6 +50,14 @@ public class CseBranchActivity extends AppCompatActivity {
     private Uri pdfUri;
     private Uri pdfDownloadUrl;
     private ProgressDialog mDialog;
+    private String unikey;
+    private Toolbar mToolbar;
+    private ListView mListView;
+
+    private ArrayAdapter<String> mAdapter;
+    private ArrayList<UploadPDF> myArrayList = new ArrayList<>();
+    private ArrayList myUniqueKeys = new ArrayList();
+    private String[]fileName;
 
 
     @Override
@@ -42,15 +65,52 @@ public class CseBranchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cse_branch);
 
-       initialize();
+        initialize();
 
-       savePdfButtn.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               selectPdfFile();
-           }
-       });
+          viewAllFiles();
 
+          mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+              @Override
+              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                  Toast.makeText(CseBranchActivity.this,
+                          "you clicked "+ mListView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+
+                  System.out.println("your id is  : "+ myUniqueKeys.get(position) );
+              }
+          });
+    }
+
+    private void viewAllFiles() {
+
+        pdfRef.keepSynced(true);
+        pdfRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    UploadPDF obj = snapshot.getValue(UploadPDF.class);
+                    myUniqueKeys.add(snapshot.getKey());
+                    myArrayList.add(obj);
+                }
+
+                fileName = new String[myArrayList.size()];
+                for(int i=0;i<fileName.length;i++)
+                    fileName[i] = myArrayList.get(i).getName();
+
+                mAdapter = new ArrayAdapter<String>(getApplicationContext() , android.R.layout.activity_list_item,
+                     android.R.id.text1   ,fileName);
+                mListView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void selectPdfFile() {
@@ -75,20 +135,21 @@ public class CseBranchActivity extends AppCompatActivity {
     private void uploadPdfFile(Uri pdfUri) {
 
         StorageReference reference = storageRootReference.child("Files").child("pdf")
-                    .child(System.currentTimeMillis() +".pdf");
+                .child(System.currentTimeMillis() +".pdf");
 
         reference.putFile(pdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                 Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
-                  while (!uri.isComplete());
+                while (!uri.isComplete());
 
-                  pdfDownloadUrl = uri.getResult();
+                pdfDownloadUrl = uri.getResult();
+                unikey = pdfRef.push().getKey();
 
-                UploadPDF uploadPDF = new UploadPDF(pdfDescripTion.getText().toString() , pdfDownloadUrl.toString());
+                UploadPDF uploadPDF = new UploadPDF("Bye" , pdfDownloadUrl.toString() , unikey);
 
-                pdfRef.child(pdfRef.push().getKey()).setValue(uploadPDF);
+                pdfRef.child(unikey).setValue(uploadPDF);
 
                 Toast.makeText(CseBranchActivity.this,
                         "file uploaded ", Toast.LENGTH_SHORT).show();
@@ -100,25 +161,47 @@ public class CseBranchActivity extends AppCompatActivity {
             @Override
             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
 
-            mDialog.setTitle("Loading...");
-            mDialog.show();
+                mDialog.setTitle("Loading...");
+                mDialog.show();
 
-            double progress = (100.0 * taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount();
+                double progress = (100.0 * taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount();
 
-            mDialog.setMessage("uploaded :"+ (int) progress+" %");
+                mDialog.setMessage("uploaded :"+ (int) progress+" %");
 
             }
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+          getMenuInflater().inflate(R.menu.branch_menu , menu);
+          return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.id_branch_menu_upload_file:
+                selectPdfFile();
+                break;
+
+
+        }
+        return true;
+    }
+
     private void initialize() {
-        myPDFfile = (ImageButton)findViewById(R.id.id_posting_image);
-        pdfDescripTion = (EditText)findViewById(R.id.id_posting_image_descrip);
-        savePdfButtn = (Button)findViewById(R.id.id_post_the_image_button);
+
 
         storageRootReference = FirebaseStorage.getInstance().getReference();
         rootRef = FirebaseDatabase.getInstance().getReference();
         pdfRef = FirebaseDatabase.getInstance().getReference().child("PDF");
         mDialog = new ProgressDialog(this);
+
+        mToolbar = (Toolbar)findViewById(R.id.id_branch_toolbar);
+        setSupportActionBar(mToolbar);
+
+        mListView = (ListView)findViewById(R.id.id_selct_subj);
     }
 }

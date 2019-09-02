@@ -1,14 +1,21 @@
 package com.example.myfirstwhatsapp;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -31,8 +38,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.yarolegovich.slidingrootnav.SlidingRootNav;
+import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference rootRef;
     private FloatingActionButton fab;
     private String saveCurrentDate , saveCurrentTime , currentUserID ;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -83,7 +95,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         updateUserStatus("online");
+
+
+
+
     }
+
+
 
     @Override
     protected void onStart() {

@@ -1,14 +1,24 @@
 package com.example.myfirstwhatsapp.staticclasses;
 
 public class UploadPDF {
-    private String name , url;
+    private String name , url , key;
 
     public UploadPDF() {
     }
 
-    public UploadPDF(String name, String url) {
+    public UploadPDF(String name, String url ,String key ) {
         this.name = name;
         this.url = url;
+        this.key=key;
+
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getName() {
@@ -26,4 +36,6 @@ public class UploadPDF {
     public void setUrl(String url) {
         this.url = url;
     }
+
+
 }
