@@ -2,7 +2,7 @@ package com.example.myfirstwhatsapp;
 
 public class MyMessages {
 
-    public String date , time , message , type , from , to , messageID , name;
+    public String date , time , message , type , from , to , messageID , name , description;
 
     public MyMessages() {
     }
@@ -69,5 +69,13 @@ public class MyMessages {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

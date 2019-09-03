@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -74,6 +75,8 @@ public class ChatActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager ;
     private MessageAdapter messageAdapter ;
     private Uri imageUri;
+    private String downloadUrl;
+    private ProgressDialog mDialog;
 
 
 
@@ -117,6 +120,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     @Override
@@ -124,6 +128,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onStart();
 
         displayAllMessages();
+
         updateUserStatus("online");
     }
 
@@ -176,8 +181,8 @@ public class ChatActivity extends AppCompatActivity {
         {
             DatabaseReference rootRef2 =  rootRef.child("Messages")
                     .child(sendUserID).child(receiverUserID);
-
             rootRef2.keepSynced(true);
+
 
             rootRef2.addChildEventListener(new ChildEventListener() {
                 @Override
@@ -263,6 +268,8 @@ public class ChatActivity extends AppCompatActivity {
         myRecyclerView.setHasFixedSize(true);
         myRecyclerView.setLayoutManager(linearLayoutManager);
         myRecyclerView.setAdapter(messageAdapter);
+
+        mDialog = new ProgressDialog(this);
 
 
     }
@@ -351,6 +358,7 @@ public class ChatActivity extends AppCompatActivity {
             map.put("description", "null");
             map.put("type" , "text");
             map.put("to" , receiverUserID);
+
 
 
           final  DatabaseReference messageSenderRef2 = messageSenderRef.child(uniKey);
@@ -475,24 +483,52 @@ public class ChatActivity extends AppCompatActivity {
         {
              imageUri = data.getData();
 
-            System.out.println("image uri generated : "+ imageUri);
+            saveSendedImageToStorage(imageUri);
 
-             Intent obj =new Intent(getApplicationContext() , Activity_During_Sending_Image_Activity.class);
-             obj.putExtra("imageUri" , imageUri.toString() );
+        }
+
+    }
+
+    private void saveSendedImageToStorage(Uri imageUri) {
+
+        mDialog.setTitle("Wait..");
+        mDialog.setMessage("please wait a second");
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.show();
+
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("Sended Pics");
+
+       String postRandomName = saveCurrentDate+saveCurrentTime;
+
+        final StorageReference filePath = storageRef
+                .child(imageUri.getLastPathSegment() +postRandomName +".jpg");
+
+        filePath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+
+                filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        downloadUrl = uri.toString();
+                        System.out.println("image uri sent -> "+downloadUrl);
+       Intent obj =new Intent(getApplicationContext() , Activity_During_Sending_Image_Activity.class);
+             obj.putExtra("imageUri" , downloadUrl );
              obj.putExtra("senderUserId" , sendUserID);
              obj.putExtra("receiverUserId" , receiverUserID);
              obj.putExtra("messageID" , uniKey);
              obj.putExtra("type" , checkerFile);
+             mDialog.dismiss();
 
-            System.out.println("image uri sent  :"+ imageUri);
-            System.out.println("sener UserID_1"+sendUserID);
-            System.out.println("receiver_userOd_1"+receiverUserID);
              startActivity(obj);
              finish();
 
 
-        }
-
+                    }
+                });
+            }
+        });
     }
 
 }

@@ -98,8 +98,8 @@ public class ContactsFragment extends Fragment {
                                   holder.userNamee.setText(retrieveName);
                                     holder.statuss.setText(retrieveStatus);
 
-                                    Picasso.with(getContext()).load(retrieveProfileImage)
-                                            .placeholder(R.drawable.profile).into(holder.profileImagee);
+                                    Picasso.with(getContext()).load(retrieveProfileImage).placeholder(R.drawable.profile)
+                                            .into(holder.profileImagee);
                                 }
                                 else if(dataSnapshot.exists() && dataSnapshot.hasChild("name") )
                                 {

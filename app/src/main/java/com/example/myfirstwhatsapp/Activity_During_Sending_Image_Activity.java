@@ -47,6 +47,8 @@ public class Activity_During_Sending_Image_Activity extends AppCompatActivity {
     private String saveDate , saveTime  ,checkFile  , randomName;
     private ProgressDialog mDialog;
 
+    private String imageDescription="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,53 +69,18 @@ public class Activity_During_Sending_Image_Activity extends AppCompatActivity {
 
 
 
-    private void initialize() {
-
-        mDialog = new ProgressDialog(this);
-        mDialog.setTitle("sending..");
-        mDialog.setMessage("sending pix..");
-        mDialog.setCanceledOnTouchOutside(false);
-
-        compleImageView =(PhotoView) findViewById(R.id.id_during_send_message_full_imageView);
-        writeAbtImageET = (EditText)findViewById(R.id.id_during_send_message_text);
-        sendImageBtn = (FloatingActionButton)findViewById(R.id.id_during_send_message_button);
-        mToolbar = (Toolbar)findViewById(R.id.toolbar_during_sending_image);
-
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-
-        imageUriff = getIntent().getStringExtra("imageUri").toString().trim();
-        System.out.println("image uri received :"+imageUriff);
-        senderUserId = getIntent().getStringExtra("senderUserId");
-        receiverUserId = getIntent().getStringExtra("receiverUserId");
-        checkFile = getIntent().getStringExtra("type");
-
-        Picasso.with(this).load(imageUriff) . into(compleImageView);
-
-        mAuth = FirebaseAuth.getInstance();
-        currentUserId = mAuth.getCurrentUser().getUid();
-        imagesStorageRef = FirebaseStorage.getInstance().getReference();
-        rootRef = FirebaseDatabase.getInstance().getReference();
-
-        System.out.println("senderUserId_2 "+ senderUserId);
-        System.out.println("receiverUserId_2 "+ receiverUserId);
-        System.out.println("type :"+ checkFile);
-    }
 
 
 
     private void savingInformationToDatabase() {
+
+        imageDescription = writeAbtImageET.getText().toString().trim();
 
         SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
         saveDate = currentDate.format(Calendar.getInstance().getTime());
 
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
         saveTime = currentTime.format(Calendar.getInstance().getTime());
-
-
 
         DatabaseReference senderMessRef = rootRef.child("Messages").
                    child(senderUserId).child(receiverUserId);
@@ -129,7 +96,7 @@ public class Activity_During_Sending_Image_Activity extends AppCompatActivity {
                 postsMap.put("to", receiverUserId);
                 postsMap.put("date" , saveDate);
                 postsMap.put("time" , saveTime);
-                postsMap.put("description" ,"null" );
+                postsMap.put("description" , imageDescription );
                 postsMap.put("type" , "image");
                 postsMap.put("message",imageUriff);
 
@@ -167,12 +134,51 @@ public class Activity_During_Sending_Image_Activity extends AppCompatActivity {
     }
 
 
+
+
     public void sendUserToChatActivity()
     {
         Intent intent = new Intent(getApplicationContext() , ChatActivity.class);
         intent.putExtra("visit_user_id" , receiverUserId);
         startActivity(intent);
         finish();
+    }
+
+
+    private void initialize() {
+
+        mDialog = new ProgressDialog(this);
+        mDialog.setTitle("sending..");
+        mDialog.setMessage("sending pix..");
+        mDialog.setCanceledOnTouchOutside(false);
+
+        compleImageView =(PhotoView) findViewById(R.id.id_during_send_message_full_imageView);
+        writeAbtImageET = (EditText)findViewById(R.id.id_during_send_message_text);
+        sendImageBtn = (FloatingActionButton)findViewById(R.id.id_during_send_message_button);
+        mToolbar = (Toolbar)findViewById(R.id.toolbar_during_sending_image);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+        imageUriff = getIntent().getStringExtra("imageUri").trim();
+        System.out.println("image uri received -> "+imageUriff);
+        senderUserId = getIntent().getStringExtra("senderUserId");
+        receiverUserId = getIntent().getStringExtra("receiverUserId");
+        checkFile = getIntent().getStringExtra("type");
+
+        Picasso.with(this).load(imageUriff) . into(compleImageView);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUserId = mAuth.getCurrentUser().getUid();
+        imagesStorageRef = FirebaseStorage.getInstance().getReference();
+        rootRef = FirebaseDatabase.getInstance().getReference();
+
+        System.out.println("senderUserId_2 "+ senderUserId);
+        System.out.println("receiverUserId_2 "+ receiverUserId);
+        System.out.println("type :"+ checkFile);
     }
 
 
