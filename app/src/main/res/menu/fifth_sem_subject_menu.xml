@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/id_atc"
+         android:title="Atc"/>
+
+    <item android:id="@+id/id_dbms"
+        android:title="DBMS"/>
+
+    <item android:id="@+id/id_java"
+    android:title="Java"/>
+
+    <item android:id="@+id/id_mec"
+        android:title="Mech"/>
+
+    <item android:id="@+id/id_cn"
+        android:title="Networking"/>
+
+    <item android:id="@+id/id_dot_net"
+        android:title="Dot net"/>
+
+
+
+
+
+</menu>

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.myfirstwhatsapp.R;
 import com.example.myfirstwhatsapp.branches.CseBranchActivity;
+import com.example.myfirstwhatsapp.branches.CseBranchActivity2;
 
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class FifthSemActivity extends AppCompatActivity {
 
     private void sendUserToCseActivity(String item) {
 
-        Intent intent = new Intent(getApplicationContext() , CseBranchActivity.class);
+        Intent intent = new Intent(getApplicationContext() , CseBranchActivity2.class);
         intent.putExtra("branchName" , item);
         intent.putExtra("semisterName" , semisterName);
         startActivity(intent);
