@@ -90,16 +90,16 @@ public class MessageAdapter extends RecyclerView.Adapter <MessageAdapter.Message
 
             }
         }
-        else
+        else if(fromMessageType.equals("image"))
         {
-            holder.senderMessageText.setVisibility(View.GONE);
-            holder.senderTime.setVisibility(View.GONE);
-            holder.receiverMessageText.setVisibility(View.GONE);
-            holder.mesgRecvPix.setVisibility(View.GONE);
-            holder.mesgSenderPix.setVisibility(View.GONE);
-            holder.receiverTime.setVisibility(View.GONE);
-            holder.senderImageDescription.setVisibility(View.GONE);
-            holder.receiverImageDescription.setVisibility(View.GONE);
+//            holder.senderMessageText.setVisibility(View.GONE);
+//            holder.senderTime.setVisibility(View.GONE);
+//            holder.receiverMessageText.setVisibility(View.GONE);
+//            holder.mesgRecvPix.setVisibility(View.GONE);
+//            holder.mesgSenderPix.setVisibility(View.GONE);
+//            holder.receiverTime.setVisibility(View.GONE);
+//            holder.senderImageDescription.setVisibility(View.GONE);
+//            holder.receiverImageDescription.setVisibility(View.GONE);
 
             if(messageSenderId .equals(fromUserId))
             {
@@ -120,6 +120,45 @@ public class MessageAdapter extends RecyclerView.Adapter <MessageAdapter.Message
                 holder.receiverImageDescription.setText(messages.getDescription());
                 Picasso.with(holder.mesgRecvPix.getContext())
                         .load(messages.getMessage()).into(holder.mesgRecvPix);
+            }
+        }
+
+        else if(fromMessageType.equals("pdf"))
+        {
+
+            if(messageSenderId .equals(fromUserId))
+            {
+                holder.mesgSenderPix.setVisibility(View.VISIBLE);
+                holder.mesgSenderPix.setBackgroundResource(R.drawable.file);
+
+            }
+            else
+            {
+
+                holder.mesgRecvPix.setVisibility(View.VISIBLE);
+                holder.mesgRecvPix.setBackgroundResource(R.drawable.file);
+
+//                Picasso.with(holder.mesgRecvPix.getContext())
+//                        .load(messages.getMessage()).into(holder.mesgRecvPix);
+            }
+        }
+        else
+        {
+
+            if(messageSenderId .equals(fromUserId))
+            {
+                holder.mesgSenderPix.setVisibility(View.VISIBLE);
+                holder.mesgSenderPix.setBackgroundResource(R.drawable.file);
+
+            }
+            else
+            {
+
+                holder.mesgRecvPix.setVisibility(View.VISIBLE);
+                holder.mesgRecvPix.setBackgroundResource(R.drawable.file);
+
+//                Picasso.with(holder.mesgRecvPix.getContext())
+//                        .load(messages.getMessage()).into(holder.mesgRecvPix);
             }
         }
     }

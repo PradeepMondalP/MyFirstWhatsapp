@@ -131,10 +131,11 @@ public class FindFriendsActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(FindFriendHolder holder, Contacts model , final int pos) {
 
-
                 holder.setFullName(model.getName ()) ;
                 holder.setStatus(model.getStatus()) ;
                 holder.setImages(getApplicationContext(), model.getImages());
+
+
 
                 holder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override

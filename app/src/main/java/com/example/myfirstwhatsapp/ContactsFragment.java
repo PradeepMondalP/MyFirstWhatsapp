@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,6 +26,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -39,7 +45,9 @@ public class ContactsFragment extends Fragment {
     private DatabaseReference contactsRef , userRef;
     private FirebaseAuth mAuth;
     private String currentUserID;
-                                       // it is nothing but chats fragment................
+    private FloatingActionButton fab;
+    private String saveCurrentDate , saveCurrentTime;
+    // it is nothing but chats fragment................
 
     public ContactsFragment() {
 
@@ -59,13 +67,41 @@ public class ContactsFragment extends Fragment {
         contactsRef = FirebaseDatabase.getInstance().getReference().child("Contacts").child(currentUserID);
         userRef =    FirebaseDatabase.getInstance().getReference().child("Users");
 
+        fab = (FloatingActionButton)conteactsView.findViewById(R.id.id_floating_btn);
+
         myContactlist.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
 
         viewAllFriends();
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendUserToFindFriendActivity();
+            }
+        });
+
         return conteactsView;
+    }
+
+    public void updateUserStatus(String state)
+    {
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        SimpleDateFormat date = new SimpleDateFormat("MMM dd,yyyy");
+        saveCurrentDate = date.format(Calendar.getInstance().getTime());
+
+        SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
+        saveCurrentTime = time.format(Calendar.getInstance().getTime());
+
+        Map map = new HashMap();
+        map.put("time" , saveCurrentTime);
+        map.put("date" , saveCurrentDate);
+        map.put("type" , state);
+
+        DatabaseReference userRef = rootRef.child("Users").child(currentUserID).child("userState");
+
+        userRef.updateChildren(map);
     }
 
 
@@ -183,5 +219,12 @@ public class ContactsFragment extends Fragment {
                     });
         }
 
+    }
+
+    private void sendUserToFindFriendActivity() {
+
+        Intent obj = new Intent(getContext() , FindFriendsActivity.class);
+        updateUserStatus("online");
+        startActivity(obj);
     }
 }

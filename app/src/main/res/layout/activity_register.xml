@@ -9,17 +9,8 @@
     tools:context=".RegisterActivity">
 
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/id_logo_p"
-        android:background="@drawable/signup_photo"
-        android:layout_height="250dp" />
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_below="@+id/id_logo_p"
         android:layout_height="wrap_content">
 
         <LinearLayout
@@ -27,6 +18,12 @@
             android:background="?android:attr/selectableItemBackground"
             android:orientation="vertical"
             android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:id="@+id/id_logo_p"
+                android:background="@drawable/signup_photo"
+                android:layout_height="250dp" />
 
 
             <TextView
@@ -41,7 +38,7 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_margin="10dp"
+                android:layout_margin="8dp"
                 android:inputType="textEmailAddress"
                 android:hint="Enter Email"
                 android:background="@drawable/input"
@@ -53,7 +50,7 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_margin="10dp"
+                android:layout_margin="8dp"
                 android:hint="Enter Password"
                 android:background="@drawable/input"
                 android:drawableLeft="@drawable/password"
@@ -65,7 +62,7 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_margin="10dp"
+                android:layout_margin="8dp"
                 android:hint="verify Password"
                 android:background="@drawable/input"
                 android:drawableLeft="@drawable/password"
@@ -81,7 +78,7 @@
                 android:text="Create Account"
                 android:layout_marginLeft="45dp"
                 android:layout_marginRight="45dp"
-                android:padding="6dp"
+                android:padding="5dp"
                 android:background="@drawable/small_background"
                 android:shadowColor="@android:color/darker_gray"
                 android:textAppearance="?android:textAppearanceMedium"

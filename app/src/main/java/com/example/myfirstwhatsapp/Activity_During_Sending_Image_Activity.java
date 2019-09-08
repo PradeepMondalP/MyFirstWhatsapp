@@ -179,6 +179,9 @@ public class Activity_During_Sending_Image_Activity extends AppCompatActivity {
         System.out.println("senderUserId_2 "+ senderUserId);
         System.out.println("receiverUserId_2 "+ receiverUserId);
         System.out.println("type :"+ checkFile);
+
+        Toast.makeText(this,
+                "wait for a second please..", Toast.LENGTH_SHORT).show();
     }
 
 

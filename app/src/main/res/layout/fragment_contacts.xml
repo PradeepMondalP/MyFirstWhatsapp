@@ -16,4 +16,21 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/id_floating_btn"
+        android:layout_width="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:clickable="true"
+        android:src="@drawable/messages"
+        android:layout_margin="20dp"
+        app:rippleColor="@android:color/holo_blue_light"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="#40E214"
+        app:elevation="6dp"
+        app:fabSize="normal"
+        app:borderWidth="0dp"
+        />
+
+
 </RelativeLayout>

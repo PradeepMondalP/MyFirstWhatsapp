@@ -24,7 +24,7 @@
             android:textSize="14sp"
             android:layout_marginEnd="60dp"
             android:background="@drawable/receiver_message_text_background"
-            android:layout_toEndOf="@+id/message_profile_image"
+
             android:layout_height="wrap_content" />
 
         <TextView
@@ -104,15 +104,14 @@
             android:layout_height="42dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="0dp"
-            android:drawableRight="@drawable/message_got_read_receipt_from_target"
             android:paddingTop="20dp"
             android:text="10:45PM"
             android:textSize="12sp" />
 
 
 
-
     </RelativeLayout>
+
 
 
 </RelativeLayout>

@@ -6,11 +6,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     tools:context=".SemisterSelectionActivity">
+
+    <include
+        layout="@layout/app_bar_layout"
+        android:id="@+id/id_actBar_Ss"/>
 
     <ListView
         android:id="@+id/id_all_sem_list"
+        android:layout_below="@+id/id_actBar_Ss"
         android:layout_width="match_parent"
         android:divider="#A5A1A1"
         android:padding="10dp"

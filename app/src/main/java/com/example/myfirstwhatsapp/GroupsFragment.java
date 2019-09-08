@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.myfirstwhatsapp.adapters.GroupListViewAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -35,8 +37,11 @@ public class GroupsFragment extends Fragment {
 
   private View groupFragmentView;
   private ListView listView;
-  private ArrayAdapter<String> arrayAdapter;
-  private ArrayList<String> list_of_groups = new ArrayList<>();
+  private GroupListViewAdapter adapter;
+
+  String [] groupName;
+
+
   private DatabaseReference groupRef;
 
     public GroupsFragment() {
@@ -59,7 +64,9 @@ public class GroupsFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String cuurentGroupName =parent.getItemAtPosition(position).toString();
+               // String cuurentGroupName =parent.getItemAtPosition(position).toString();
+                String cuurentGroupName = groupName[position];
+                System.out.println("yoi pressesd" + cuurentGroupName);
 
                 Intent obj = new Intent(getContext() ,GroupChatActivity.class);
                 obj.putExtra("groupName" , cuurentGroupName);
@@ -74,17 +81,45 @@ public class GroupsFragment extends Fragment {
     private void initialize_fields() {
 
         listView = (ListView)groupFragmentView.findViewById(R.id.id_list_view_group_fragment);
-        arrayAdapter = new ArrayAdapter<String>(getContext() , android.R.layout.simple_list_item_1 , list_of_groups);
-        listView.setAdapter(arrayAdapter);
+
     }
 
-    private void retrieveAndDisplayGroups() {
+//    private void retrieveAndDisplayGroups() {
+//
+//        groupRef.keepSynced(true);
+//
+//     groupRef.addValueEventListener(new ValueEventListener() {
+//         @Override
+//         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//             Set<String> set = new HashSet<>();
+//             Iterator iterator = dataSnapshot.getChildren().iterator();
+//
+//             while (iterator.hasNext())
+//             {
+//                 set.add( ( (DataSnapshot)iterator.next() ) .getKey() );
+//             }
+//             list_of_groups.clear();
+//             list_of_groups.addAll(set);
+//             arrayAdapter.notifyDataSetChanged();
+//         }
+//
+//         @Override
+//         public void onCancelled(@NonNull DatabaseError databaseError) {
+//             Toast.makeText(getContext(),
+//                     "could load groups", Toast.LENGTH_SHORT).show();
+//
+//         }
+//     });
+//    }
 
+    public void retrieveAndDisplayGroups()
+    {
         groupRef.keepSynced(true);
 
-     groupRef.addValueEventListener(new ValueEventListener() {
-         @Override
-         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        groupRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
              Set<String> set = new HashSet<>();
              Iterator iterator = dataSnapshot.getChildren().iterator();
@@ -93,18 +128,20 @@ public class GroupsFragment extends Fragment {
              {
                  set.add( ( (DataSnapshot)iterator.next() ) .getKey() );
              }
-             list_of_groups.clear();
-             list_of_groups.addAll(set);
-             arrayAdapter.notifyDataSetChanged();
-         }
 
-         @Override
-         public void onCancelled(@NonNull DatabaseError databaseError) {
-             Toast.makeText(getContext(),
-                     "could load groups", Toast.LENGTH_SHORT).show();
+               groupName = Arrays.copyOf(set.toArray() ,set.size() ,String[].class);
 
-         }
-     });
+                adapter = new GroupListViewAdapter(getContext() , groupName);
+                listView.setAdapter(adapter);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

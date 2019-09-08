@@ -1,5 +1,4 @@
 package com.example.myfirstwhatsapp;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -25,6 +24,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,8 +57,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatActivity extends AppCompatActivity {
 
-    private Toolbar mToolbar;
-
     private CircleImageView receiverDP;
     private TextView receiverName , reciverLastSeen ;
 
@@ -65,6 +65,7 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference rootRef , userRef , messageRef;
     private RecyclerView myRecyclerView;
+    private ImageView imageViewBackground;
 
     private static final int GalleryPix =1;
     private ImageButton sendFileBtn;
@@ -77,6 +78,7 @@ public class ChatActivity extends AppCompatActivity {
     private Uri imageUri;
     private String downloadUrl;
     private ProgressDialog mDialog;
+    private Toolbar mToolbar;
 
 
 
@@ -86,6 +88,8 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         initialize();
+
+
 
         displayNameAndPhoto();
 
@@ -121,13 +125,14 @@ public class ChatActivity extends AppCompatActivity {
         });
 
 
+        displayAllMessages();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        displayAllMessages();
+
 
         updateUserStatus("online");
     }
@@ -197,21 +202,18 @@ public class ChatActivity extends AppCompatActivity {
                         myRecyclerView.smoothScrollToPosition(myRecyclerView
                                 .getAdapter().getItemCount());
                     }
-                    else
-                    {
-                        Toast.makeText(ChatActivity.this,
-                                "outside child", Toast.LENGTH_SHORT).show();
-                    }
                 }
 
                 @Override
                 public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+                    messageAdapter.notifyDataSetChanged();
                 }
 
                 @Override
                 public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
+                    messageAdapter.notifyDataSetChanged();
                 }
 
                 @Override
@@ -228,25 +230,26 @@ public class ChatActivity extends AppCompatActivity {
 
         }
 
-
     }
 
 
     private void initialize() {
 
-        mToolbar = (Toolbar)findViewById(R.id.id_toolbar_chat_acttiviy);
+        mToolbar = (Toolbar)findViewById(R.id.id_abc) ;
+
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle(" Friend");
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
-        LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View action_bar_view = inflater.inflate(R.layout.chat_custom_bar , null );
+
+        LayoutInflater layoutInflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View action_bar_view = layoutInflater.inflate(R.layout.chat_custom_bar ,null);
         actionBar.setCustomView(action_bar_view);
 
 
+        imageViewBackground = (ImageView)findViewById(R.id.id_my_chat_activity_background);
         sendFileBtn = (ImageButton)findViewById(R.id.id_selct_file_btn);
         receiverName  =(TextView)findViewById(R.id.id_custom_profile_name);
         receiverDP = (CircleImageView)findViewById(R.id.id_custom_profile_image);
@@ -416,19 +419,21 @@ public class ChatActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.id_view_profile_chat_act_menu:
-                Toast.makeText(this, "go to profile", Toast.LENGTH_SHORT).show();
+                sendUserToProfileActivity();
                 break;
 
             case R.id.id_clear_chat_chat_act_menu:
-                Toast.makeText(this, "Clear chat", Toast.LENGTH_SHORT).show();
+                clearTheChat();
                 break;
 
             case R.id.id_wallpaper_chat_act_menu:
-                Toast.makeText(this, "Change wallaper", Toast.LENGTH_SHORT).show();
+                changeBackgroundWallpaper();
                 break;
         }
         return true;
     }
+
+
 
     public void openAllTytpesOfFiles()
     {
@@ -453,10 +458,13 @@ public class ChatActivity extends AppCompatActivity {
                 if(pos==1)
                 {
                       checkerFile = "pdf";
+                      openGalleryForFiles("pdf");
+
                 }
                 if(pos==2)
                 {
                      checkerFile="docx";
+                     openGalleryForFiles("msword");
                 }
 
             }
@@ -464,12 +472,20 @@ public class ChatActivity extends AppCompatActivity {
         builder.create().show();
     }
 
+    private void openGalleryForFiles(String pdf) {
+
+        Intent intent = new Intent();
+        intent.setType("application/"+pdf);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent , "select the file") , 438);
+    }
+
     public void openGallery()
     {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent , GalleryPix);
+        startActivityForResult(Intent.createChooser(intent , "select the file") , 438);
 
     }
 
@@ -478,14 +494,137 @@ public class ChatActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==GalleryPix && resultCode==RESULT_OK && data!=null
+        if(requestCode==438 && resultCode==RESULT_OK && data!=null
                 && data.getData()!=null)
         {
              imageUri = data.getData();
 
-            saveSendedImageToStorage(imageUri);
+             if(checkerFile.equals("pdf"))
+             {
+                  saveSendedPdfToStorage(imageUri , checkerFile);
+             }
+             else if(checkerFile.equals("image"))
+             {
+                 saveSendedImageToStorage(imageUri);
+             }
+             else
+             {
+                  saveSendedPdfToStorage(imageUri , checkerFile );
+             }
+
+
 
         }
+        else
+            if(requestCode==2 && resultCode==RESULT_OK && data!=null
+                    && data.getData()!=null)
+            {
+                  imageUri = data.getData();
+
+                  Picasso.with(getApplicationContext()).load(imageUri)
+                          .into(imageViewBackground);
+            }
+
+    }
+
+    private void saveSendedPdfToStorage(Uri imageUri,final String checkerFile)
+    {
+        mDialog.setTitle("Loading..");
+        mDialog.setMessage("sending file..");
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.show();
+
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("Sended Pdf");
+
+        String postRandomName = saveCurrentDate+saveCurrentTime;
+
+        final StorageReference filePath = storageRef
+                .child(imageUri.getLastPathSegment() + postRandomName+System.currentTimeMillis() +"."+checkerFile);
+
+        filePath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+
+                if(task.isSuccessful())
+                {
+                     filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                         @Override
+                         public void onSuccess(Uri uri) {
+
+                             downloadUrl = uri.toString();
+                             saveFileToDatabase(downloadUrl , checkerFile);
+                         }
+                     });
+                }
+                else
+                {
+                    mDialog.dismiss();
+                    Toast.makeText(ChatActivity.this,
+                            "couldnt send file", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+    private void saveFileToDatabase(String downloadUrl, String type) {
+
+        final DatabaseReference messageSenderRef =
+                messageRef.child(sendUserID).child(receiverUserID);
+
+        final DatabaseReference messageReceiverRef =
+                messageRef.child(receiverUserID).child(sendUserID);
+
+        uniKey= messageSenderRef.push().getKey();
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
+        saveCurrentDate = currentDate.format(Calendar.getInstance().getTime());
+
+        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
+        saveCurrentTime = currentTime.format(Calendar.getInstance().getTime());
+
+        final  Map<String , Object> map = new HashMap<>();
+
+        map.put("date" , saveCurrentDate);
+        map.put("time", saveCurrentTime);
+        map.put("message", downloadUrl);
+        map.put("from" , sendUserID);
+        map.put("description", "null");
+        map.put("type" , type);
+        map.put("to" , receiverUserID);
+
+        final  DatabaseReference messageSenderRef2 = messageSenderRef.child(uniKey);
+        final  DatabaseReference messageReceiverRef2 = messageReceiverRef.child(uniKey);
+
+        messageSenderRef2.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    messageReceiverRef2.updateChildren(map).addOnCompleteListener(
+                            new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                    if(task.isSuccessful())
+                                    {
+                                        mDialog.dismiss();
+                                        Toast.makeText(ChatActivity.this,
+                                                "file sent..", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(ChatActivity.this,
+                                                "couldnt send file", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                    );
+                }
+            }
+        });
+
+
 
     }
 
@@ -529,6 +668,31 @@ public class ChatActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    private void clearTheChat() {
+
+        DatabaseReference deletingMesRef = messageRef.child(sendUserID).child(receiverUserID);
+
+        deletingMesRef.removeValue();
+        Toast.makeText(this, "all chat cleared", Toast.LENGTH_SHORT).show();
+
+        sendUserToMainActivity();
+
+    }
+
+    private void sendUserToMainActivity() {
+        Intent intent = new Intent(getApplicationContext() , MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void changeBackgroundWallpaper()
+    {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent , 2);
     }
 
 }

@@ -28,6 +28,7 @@ import com.example.myfirstwhatsapp.pdfviewer.PdfViewerActivity;
 import com.example.myfirstwhatsapp.staticclasses.UploadPDF;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,7 +48,7 @@ public class CseBranchActivity extends AppCompatActivity {
 
 
     private EditText pdfFileName;
-    private Button uploadPdfBtn;
+    private Button uploadPdfBtn , cancelButton;
     StorageReference storageRootReference;
     DatabaseReference rootRef , pdfRef;
 
@@ -64,6 +65,8 @@ public class CseBranchActivity extends AppCompatActivity {
 
     private String[]fileName;
     private String  userTypeFileName2;
+    private String branchName,semisterName , currentUserId;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -88,6 +91,16 @@ public class CseBranchActivity extends AppCompatActivity {
                    userTypeFileName2 = myFileName;
                    selectPdfFile();
                }
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                pdfFileName.setVisibility(View.GONE);
+                uploadPdfBtn.setVisibility(View.GONE);
+                cancelButton.setVisibility(View.GONE);
             }
         });
 
@@ -225,10 +238,21 @@ public class CseBranchActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
+
             case R.id.id_branch_menu_upload_file:
 
-                pdfFileName.setVisibility(View.VISIBLE);
-                uploadPdfBtn.setVisibility(View.VISIBLE);
+
+                if(currentUserId.equals("EHEMXw7afHWxtlKWUsk6Xfire6g1"))
+                {
+                    pdfFileName.setVisibility(View.VISIBLE);
+                    uploadPdfBtn.setVisibility(View.VISIBLE);
+                    cancelButton.setVisibility(View.VISIBLE);
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "you" +
+                            "don't have permmission", Toast.LENGTH_SHORT).show();
+
                 break;
         }
         return true;
@@ -238,18 +262,29 @@ public class CseBranchActivity extends AppCompatActivity {
 
     private void initialize() {
 
+        branchName = getIntent().getStringExtra("branchName");
+        semisterName = getIntent().getStringExtra("semisterName");
+
+        mToolbar = (Toolbar)findViewById(R.id.id_bbb);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle(branchName);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         storageRootReference = FirebaseStorage.getInstance().getReference();
         rootRef = FirebaseDatabase.getInstance().getReference();
         pdfRef = rootRef.child("PDF").child("Fifth Sem").child("CSE");
         mDialog = new ProgressDialog(this);
 
-        mToolbar = (Toolbar)findViewById(R.id.id_branch_toolbar);
-        setSupportActionBar(mToolbar);
-
         mListView = (ListView)findViewById(R.id.id_selct_subj);
 
         pdfFileName = (EditText)findViewById(R.id.id_fileName);
         uploadPdfBtn = (Button)findViewById(R.id.id_upload_pdf_file);
+        cancelButton = (Button)findViewById(R.id.id_cancel_upload_pdf_file);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUserId = mAuth.getCurrentUser().getUid();
+        System.out.println("the current user id is :" + currentUserId);
     }
 }

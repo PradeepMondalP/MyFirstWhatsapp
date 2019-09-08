@@ -10,7 +10,7 @@
         android:id="@+id/id_clear_chat_chat_act_menu"/>
 
     <item
-        android:title="Wallpaper"
+        android:title="Change background"
         android:id="@+id/id_wallpaper_chat_act_menu"/>
 
 </menu>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -21,13 +20,22 @@
         android:textColor="#118C7E"
         android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/welcomeIV"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginTop="50dp"
-        android:src="@drawable/ill_eula" />
+        android:text="Pradeeps app"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_height="wrap_content"/>
+
+<!--    <ImageView-->
+<!--        android:id="@+id/welcomeIV"-->
+<!--        android:layout_width="250dp"-->
+<!--        android:layout_height="250dp"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:src="@drawable/ill_eula" />-->
 
     <TextView
         android:id="@+id/agreeNContinueTV"
@@ -51,7 +59,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/btn_green_round_corners"
+        android:background="@drawable/button"
         android:paddingBottom="10dp"
         android:paddingLeft="35dp"
         android:paddingRight="35dp"

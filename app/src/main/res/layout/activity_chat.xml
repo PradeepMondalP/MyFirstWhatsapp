@@ -3,22 +3,29 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/default_wallpaper"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChatActivity">
 
-   <include
-       layout="@layout/app_bar_layout"
-       android:id="@+id/id_toolbar_chat_acttiviy" />
+    <include
+        layout="@layout/app_bar_layout"
+        android:id="@+id/id_abc"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:id="@+id/id_my_chat_activity_background"
+        android:layout_below="@+id/id_abc"
+        android:background="@drawable/default_wallpaper"
+        android:scaleType="fitXY"
+        android:layout_height="match_parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
 
         android:id="@+id/id_recycler_chat_act"
         android:layout_above="@+id/id_myLineraLayout"
+        android:layout_below="@+id/id_abc"
         android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
-        android:layout_below="@+id/id_toolbar_chat_acttiviy"
         android:layout_height="match_parent">
 
     </androidx.recyclerview.widget.RecyclerView>
@@ -47,7 +54,7 @@
             android:layout_margin="4dp"
             android:hint="type your message"
             android:background="@drawable/input"
-            android:padding="12dp"
+            android:padding="10dp"
             android:layout_height="wrap_content" />
 
 

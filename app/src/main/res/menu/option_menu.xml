@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+        <item
+            android:title="Notes"
+            android:id="@+id/id_notes"/>
 
-    <item
-        android:title="Notes"
-        android:id="@+id/id_notes"/>
+        <item
+            android:id="@+id/create_group"
+            android:icon="@drawable/logout"
+            android:title="Create Group"/>
 
-    <item
-        android:id="@+id/create_group"
-        android:icon="@drawable/logout"
-        android:title="Create Group"/>
-
-     <item
-         android:title="Profile setting"
-         android:icon="@drawable/settings"
-         android:id="@+id/setting"/>
+        <item
+            android:title="About"
+            android:id="@+id/id_about"/>
 
     <item
         android:title="Setting"
-        android:id="@+id/id_originsl_setting"/>
+        android:id="@+id/id_originsl_setting">
+
+        <menu>
+
+            <item
+                android:title="Profile setting"
+                android:id="@+id/setting">
+            </item>
+        </menu>
+    </item>
 
     <item
-        android:title="About"
-        android:id="@+id/id_about"/>
-    <item
         android:title="logout"
-        android:id="@+id/logout"/>
+        android:id="@+id/logout">
+    </item>
+
 
 </menu>

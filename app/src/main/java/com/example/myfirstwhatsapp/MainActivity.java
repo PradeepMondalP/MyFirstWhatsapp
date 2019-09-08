@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
     private DatabaseReference rootRef;
-    private FloatingActionButton fab;
     private String saveCurrentDate , saveCurrentTime , currentUserID ;
 
 
@@ -86,13 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         initialize_ids();
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendUserToFindFriendActivity();
-            }
-        });
 
         updateUserStatus("online");
 
@@ -139,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
     private void initialize_ids() {
         mAuth = FirebaseAuth.getInstance();
         rootRef = FirebaseDatabase.getInstance().getReference();
-        fab = (FloatingActionButton)findViewById(R.id.id_floating_btn);
         currentUserID = mAuth.getCurrentUser().getUid();
     }
 
@@ -289,12 +280,6 @@ public class MainActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-    private void sendUserToFindFriendActivity() {
-
-        Intent obj = new Intent(getApplicationContext() , FindFriendsActivity.class);
-        updateUserStatus("online");
-        startActivity(obj);
-    }
 
     private void sendUserToLoginActivity() {
         Intent loginIntent = new Intent(getApplicationContext() , LoginActivity.class);
