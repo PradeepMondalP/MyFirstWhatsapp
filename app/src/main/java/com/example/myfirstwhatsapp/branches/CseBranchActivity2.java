@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -19,16 +20,16 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.example.myfirstwhatsapp.R;
+import com.example.myfirstwhatsapp.general.GeneralNotesActivity;
 import com.example.myfirstwhatsapp.semister.FifthSemActivity;
 
 public class CseBranchActivity2 extends AppCompatActivity {
-    private String branchName;
-    private String semisterName;
+    private String branchName ,semisterName;
     private Toolbar mToolbar;
     private ListView listView;
     private ArrayAdapter<String > adapter;
     private String[] section = {"Notes" , "Assignments" , "Books" , "QuestionPapers"};
-    String item;
+    String item ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class CseBranchActivity2 extends AppCompatActivity {
 
         mToolbar = (Toolbar)findViewById(R.id.id_bbb22);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle(semisterName);
+        getSupportActionBar().setTitle(semisterName +" -> " +branchName );
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -93,8 +94,6 @@ public class CseBranchActivity2 extends AppCompatActivity {
 
         popupMenu.inflate(fifth_sem_subject_menu );
 
-
-
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -102,27 +101,32 @@ public class CseBranchActivity2 extends AppCompatActivity {
                 switch (item.getItemId())
                 {
                     case R.id.id_atc:
-                        Toast.makeText(CseBranchActivity2.this, "ATc", Toast.LENGTH_SHORT).show();
+                         sendUserToGeneralNotesActivity(semisterName , branchName ,"Atc");
                         break;
 
                     case R.id.id_java:
                         Toast.makeText(CseBranchActivity2.this, "java", Toast.LENGTH_SHORT).show();
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Java");
                         break;
 
                     case R.id.id_dbms:
                         Toast.makeText(CseBranchActivity2.this, "dbms", Toast.LENGTH_SHORT).show();
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Dbms");
                         break;
 
                     case R.id.id_dot_net:
                         Toast.makeText(CseBranchActivity2.this, "dot net", Toast.LENGTH_SHORT).show();
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Dot new");
                         break;
 
                     case R.id.id_mec:
                         Toast.makeText(CseBranchActivity2.this, "mec", Toast.LENGTH_SHORT).show();
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Mec");
                         break;
 
                     case R.id.id_cn:
                         Toast.makeText(CseBranchActivity2.this, "networking", Toast.LENGTH_SHORT).show();
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Networking");
                         break;
 
                     case R.id.id_assignment_1:
@@ -168,5 +172,14 @@ public class CseBranchActivity2 extends AppCompatActivity {
         });
         popupMenu.setGravity(Gravity.FILL_VERTICAL);
         popupMenu.show();
+    }
+
+    private void sendUserToGeneralNotesActivity(String semisterName , String branchName, String subjectName) {
+        Intent intent = new Intent(getApplicationContext() , GeneralNotesActivity.class);
+        intent.putExtra("subjectName", subjectName);
+        intent.putExtra("semisterName" , semisterName);
+        intent.putExtra("branchName", branchName);
+        startActivity(intent);
+
     }
 }

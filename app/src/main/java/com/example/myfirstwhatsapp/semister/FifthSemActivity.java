@@ -12,10 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.myfirstwhatsapp.R;
-import com.example.myfirstwhatsapp.branches.CseBranchActivity;
 import com.example.myfirstwhatsapp.branches.CseBranchActivity2;
-
-import java.util.List;
 
 public class FifthSemActivity extends AppCompatActivity {
 
@@ -55,7 +52,7 @@ public class FifthSemActivity extends AppCompatActivity {
 
                 if(item.equals("CSE"))
                 {
-                      sendUserToCseActivity(item);
+                      sendUserToCseActivity(semisterName,item);
                 }
                 else {
                     Toast.makeText(FifthSemActivity.this,
@@ -65,11 +62,11 @@ public class FifthSemActivity extends AppCompatActivity {
         });
     }
 
-    private void sendUserToCseActivity(String item) {
+    private void sendUserToCseActivity(String semisterName, String item) {
 
         Intent intent = new Intent(getApplicationContext() , CseBranchActivity2.class);
         intent.putExtra("branchName" , item);
-        intent.putExtra("semisterName" , semisterName);
+        intent.putExtra("semisterName" , this.semisterName);
         startActivity(intent);
     }
 }

@@ -48,7 +48,7 @@ public class SemisterSelectionActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                int pos = position;
+                int pos =  position;
                 String itemName = (String)listView.getItemAtPosition(pos);
                 if(itemName.equals("Semister 5"))
                 {

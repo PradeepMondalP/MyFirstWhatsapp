@@ -195,19 +195,7 @@ public class FindFriendsActivity extends AppCompatActivity {
         }
 
         public void setImages(final Context ctx  ,final String images){
-
-            Picasso.with(ctx).load(images).networkPolicy(NetworkPolicy.OFFLINE)
-                    .into(profileImagee, new Callback() {
-                        @Override
-                        public void onSuccess() {
-
-                        }
-                        @Override
-                        public void onError() {
-                            Picasso.with(ctx).load(images).into(profileImagee);
-
-                        }
-                    });
+         Picasso.with(ctx).load(images).placeholder(R.drawable.profile).into(profileImagee);
         }
     }
 

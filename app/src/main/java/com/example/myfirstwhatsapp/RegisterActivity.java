@@ -41,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         initialize_ids();
 
+
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,21 +70,25 @@ public class RegisterActivity extends AppCompatActivity {
             email.setError("Enter a Email");
             return;
         }
-        else if(TextUtils.isEmpty(mPass)){
-            pass.setError("Enter a password");
+        else if(TextUtils.isEmpty(mPass) || mPass.length()<7){
+            pass.setError("Password req of min 7 char");
             return;
         }
-        else if(TextUtils.isEmpty(mVerifyPass))
+        else if(TextUtils.isEmpty(mVerifyPass) || mVerifyPass.length()<7)
         {
-            pass.setError("Enter pass again");
+            verify_pass.setError("Enter the correct pass again ");
             return;
         }
-        else if( ! mPass.equals(mVerifyPass))
+        else if( ! mPass.equals(mVerifyPass)  && (mPass.length() <7 ))
         {
-            Toast.makeText(getApplicationContext(), "Password Doesnt match",
+            Toast.makeText(getApplicationContext(), "Password Doesnt match or min req pass" +
+                            "length 7 char..",
                     Toast.LENGTH_SHORT).show();
         }
         else {
+
+
+
             loadingBar.setTitle("Creating new Account");
             loadingBar.setMessage("Please wait while creating new Account");
             loadingBar.show();
@@ -105,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
                     {
                         loadingBar.dismiss();
                         Toast.makeText(RegisterActivity.this,
-                                "couldnt create account", Toast.LENGTH_SHORT).show();
+                                "", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

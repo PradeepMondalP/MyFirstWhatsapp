@@ -48,8 +48,8 @@ public class SettingActivity extends AppCompatActivity {
     private ProgressDialog mDialog;
 
     private static final int GalleryPix =1;
-    private Uri imageUri  ;
-    private String downloadUrl ;
+    private Uri imageUri  , resultUri ;
+    private String downloadUrl ="null" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,7 +203,7 @@ public class SettingActivity extends AppCompatActivity {
                 map.put("uid" , currentUserID);
                 map.put("name" , userNamee);
                 map.put("status" , userStatuss);
-              //  map.put("images" , imageUri);
+                map.put("images" , downloadUrl);
                 map.put("gender" , "null");
 
                DatabaseReference rootRef2 = rootRef.child("Users").child(currentUserID);
@@ -275,7 +275,7 @@ public class SettingActivity extends AppCompatActivity {
                 mDialog.setCanceledOnTouchOutside(false);
                 mDialog.show();
 
-                final Uri resultUri = result.getUri();
+                  resultUri = result.getUri();
 
                 // after cropping im displaying it immediately
                 Picasso.with(getApplicationContext()).load(resultUri).into(profileImage);
@@ -284,15 +284,13 @@ public class SettingActivity extends AppCompatActivity {
 
                 //  saving to storage and confirming it
                 filePath.putFile(resultUri).addOnCompleteListener
-                        (new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        (new OnCompleteListener<UploadTask.TaskSnapshot>()
+                        {
                             @Override
                             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
 
                                 if(task.isSuccessful())
                                 {
-                                    Toast.makeText(getApplicationContext(),
-                                            "profile image  successfully uploaded"
-                                            , Toast.LENGTH_SHORT).show();
                                     mDialog.dismiss();
 
                                     //  getting the image url and saving it to the
@@ -306,28 +304,29 @@ public class SettingActivity extends AppCompatActivity {
                                                     // uri returns the url of the image
                                                       downloadUrl = uri.toString();
 
+                                                      mDialog.dismiss();
                                                     // saving the url in the database and confirming it
-                                 DatabaseReference userRef =rootRef.child("Users").child(currentUserID)
-                                                          .child("images");
+                               //  DatabaseReference userRef =rootRef.child("Users").child(currentUserID)
+                                //                          .child("images");
 
-                                                  userRef.setValue(downloadUrl).addOnCompleteListener(
-                                                          new OnCompleteListener<Void>() {
-                                                              @Override
-                                             public void onComplete(@NonNull Task<Void> task) {
-                                                                  if(task.isSuccessful()) {
-
-                                                                  }
-                                                                  else
-                                                                  {
-                                                                      Toast.makeText(SettingActivity.this,
-                                                                              "couldnt upld to imag to db",
-                                                                              Toast.LENGTH_SHORT).show();
-                                                                      mDialog.dismiss();
-                                                                  }
-
-                                                              }
-                                                          }
-                                                  );
+//                                                  userRef.setValue(downloadUrl).addOnCompleteListener(
+//                                                          new OnCompleteListener<Void>() {
+//                                                              @Override
+//                                             public void onComplete(@NonNull Task<Void> task) {
+//                                                                  if(task.isSuccessful()) {
+//
+//                                                                  }
+//                                                                  else
+//                                                                  {
+//                                                                      Toast.makeText(SettingActivity.this,
+//                                                                              "couldnt upld to imag to db",
+//                                                                              Toast.LENGTH_SHORT).show();
+//                                                                      mDialog.dismiss();
+//                                                                  }
+//
+//                                                              }
+//                                                          }
+//                                                  );
 
                                                 }
                                             }) ;
