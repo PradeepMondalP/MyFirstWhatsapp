@@ -163,7 +163,7 @@ public class PhoneLoginActivity extends AppCompatActivity {
                             Toast.makeText(PhoneLoginActivity.this,
                                     "logged in successfulky", Toast.LENGTH_SHORT).show();
 
-                            sendUserToMainActivity();
+                            sendUserToSettingActivity();
 
                         } else
                             {
@@ -186,9 +186,9 @@ public class PhoneLoginActivity extends AppCompatActivity {
         loadingBar = new ProgressDialog(this);
     }
 
-    private void sendUserToMainActivity() {
+    private void sendUserToSettingActivity() {
 
-        Intent obj = new Intent(getApplicationContext() , MainActivity.class);
+        Intent obj = new Intent(getApplicationContext() , SettingActivity.class);
         obj.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(obj);
         finish();

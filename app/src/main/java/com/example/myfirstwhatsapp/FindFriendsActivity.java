@@ -184,8 +184,7 @@ public class FindFriendsActivity extends AppCompatActivity {
             statuss = (TextView)mView.findViewById(R.id.id_user_status);
         }
 
-        public void setStatus(String status)
-        {
+        public void setStatus(String status) {
             statuss.setText(status);
         }
 
@@ -198,5 +197,4 @@ public class FindFriendsActivity extends AppCompatActivity {
          Picasso.with(ctx).load(images).placeholder(R.drawable.profile).into(profileImagee);
         }
     }
-
 }

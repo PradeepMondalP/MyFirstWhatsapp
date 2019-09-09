@@ -1,27 +1,21 @@
 package com.example.myfirstwhatsapp.branches;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
-import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.example.myfirstwhatsapp.R;
 import com.example.myfirstwhatsapp.general.GeneralNotesActivity;
-import com.example.myfirstwhatsapp.semister.FifthSemActivity;
 
 public class CseBranchActivity2 extends AppCompatActivity {
     private String branchName ,semisterName;
@@ -130,15 +124,15 @@ public class CseBranchActivity2 extends AppCompatActivity {
                         break;
 
                     case R.id.id_assignment_1:
-                        Toast.makeText(CseBranchActivity2.this, "AssignMent 1", Toast.LENGTH_SHORT).show();
+
                         break;
 
                     case R.id.id_assignment_2:
-                        Toast.makeText(CseBranchActivity2.this, "assignMent 2", Toast.LENGTH_SHORT).show();
+
                         break;
 
                     case R.id.id_assignment_3:
-                        Toast.makeText(CseBranchActivity2.this, "assignMent 3", Toast.LENGTH_SHORT).show();
+
                         break;
 
                     case R.id.id_atc_bk:
@@ -173,6 +167,7 @@ public class CseBranchActivity2 extends AppCompatActivity {
         popupMenu.setGravity(Gravity.FILL_VERTICAL);
         popupMenu.show();
     }
+
 
     private void sendUserToGeneralNotesActivity(String semisterName , String branchName, String subjectName) {
         Intent intent = new Intent(getApplicationContext() , GeneralNotesActivity.class);

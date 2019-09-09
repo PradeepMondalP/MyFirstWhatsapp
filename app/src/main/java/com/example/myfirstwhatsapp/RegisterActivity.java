@@ -145,8 +145,6 @@ public class RegisterActivity extends AppCompatActivity {
         finish();
     }
 
-
-
     private void sendUserToSettingActivity() {
         Intent obj = new Intent(getApplicationContext() , SettingActivity.class);
         obj.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".general.GeneralAssignmentActivity">
+
+
+    <include
+        android:id="@+id/id_general_assignment_toolbar"
+        layout="@layout/app_bar_layout"/>
+
+
+    <LinearLayout
+        android:id="@+id/id_my_lineraLayout_assgn"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/id_general_assignment_toolbar"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/id_fileName_ass"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            android:hint="  Enter file Name"
+            android:background="@drawable/input"
+            android:layout_width="match_parent"
+            android:padding="8dp"
+            android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/id_upload_pdf_file_ass"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/small_background"
+                android:padding="6dp"
+                android:layout_weight="4"
+                android:shadowColor="@android:color/darker_gray"
+                android:text="Upload"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/black"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/id_cancel_upload_pdf_file_ass"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/button_red"
+                android:text="Cancel"
+                android:padding="5dp"
+                android:shadowColor="@android:color/darker_gray"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/black" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+    <ListView
+        android:id="@+id/id_genral_ass_list_view"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_below="@+id/id_my_lineraLayout_assgn"
+        android:dividerHeight="2dp"
+        android:layout_height="match_parent">
+
+    </ListView>
+
+
+
+</RelativeLayout>
