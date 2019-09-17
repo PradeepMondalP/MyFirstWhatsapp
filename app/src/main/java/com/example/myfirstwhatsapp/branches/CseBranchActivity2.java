@@ -5,7 +5,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -65,20 +64,19 @@ public class CseBranchActivity2 extends AppCompatActivity {
                 switch (item)
                 {
                     case "Notes":
-                         openPopupMenuForNotes(R.menu.fifth_sem_subject_menu );
+                         openPopupMenuForNotes(R.menu.fifth_sem_subject_menu , "Notes" );
                           break;
 
                     case "Assignments":
-                        openPopupMenuForNotes(R.menu.assignments_menu );
+                        openPopupMenuForNotes(R.menu.assignments_menu , "Assignments" );
                         break;
 
                     case "Books":
-                        openPopupMenuForNotes(R.menu.fifth_sem_cs_books_menu );
+                        openPopupMenuForNotes(R.menu.fifth_sem_cs_books_menu , "Books");
                         break;
 
                     case "QuestionPapers":
-                        Toast.makeText(CseBranchActivity2.this, "not yet " +
-                                "developed", Toast.LENGTH_SHORT).show();
+                        openPopupMenuForNotes(R.menu.fifth_sem_cs_books_menu , "QuestionPapers");
                         break;
                 }
             }
@@ -86,7 +84,7 @@ public class CseBranchActivity2 extends AppCompatActivity {
     }
 
 
-    private void openPopupMenuForNotes(int fifth_sem_subject_menu ) {
+    private void openPopupMenuForNotes(int fifth_sem_subject_menu  , final String typeOfData) {
         PopupMenu popupMenu = new PopupMenu(getApplicationContext(), popupDisplayBtn   );
 
         popupMenu.inflate(fifth_sem_subject_menu );
@@ -98,68 +96,74 @@ public class CseBranchActivity2 extends AppCompatActivity {
                 switch (item.getItemId())
                 {
                     case R.id.id_atc:
-                         sendUserToGeneralNotesActivity(semisterName , branchName ,"Atc");
+                         sendUserToGeneralNotesActivity(semisterName , branchName ,"Atc" , typeOfData);
                         break;
 
                     case R.id.id_java:
                         Toast.makeText(CseBranchActivity2.this, "java", Toast.LENGTH_SHORT).show();
-                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Java");
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Java" , typeOfData);
                         break;
 
                     case R.id.id_dbms:
                         Toast.makeText(CseBranchActivity2.this, "dbms", Toast.LENGTH_SHORT).show();
-                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Dbms");
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Dbms" , typeOfData);
                         break;
 
                     case R.id.id_dot_net:
                         Toast.makeText(CseBranchActivity2.this, "dot net", Toast.LENGTH_SHORT).show();
-                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Dot new");
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Dot new" , typeOfData);
                         break;
 
                     case R.id.id_mec:
                         Toast.makeText(CseBranchActivity2.this, "mec", Toast.LENGTH_SHORT).show();
-                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Mec");
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Mec" , typeOfData);
                         break;
 
                     case R.id.id_cn:
-                        Toast.makeText(CseBranchActivity2.this, "networking", Toast.LENGTH_SHORT).show();
-                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Networking");
+                        message("Networking");
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Networking" , typeOfData);
                         break;
 
                     case R.id.id_assignment_1:
-
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Assignment 1" , typeOfData);
                         break;
 
                     case R.id.id_assignment_2:
-
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Assignment 2" , typeOfData);
                         break;
 
                     case R.id.id_assignment_3:
-
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Assignment 3" , typeOfData);
                         break;
 
                     case R.id.id_atc_bk:
-                        Toast.makeText(CseBranchActivity2.this, "ATc book", Toast.LENGTH_SHORT).show();
-                        break;
+                          message("Atc");
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Atc" , typeOfData);
+                           break;
 
                     case R.id.id_java_bk:
-                        Toast.makeText(CseBranchActivity2.this, "java book", Toast.LENGTH_SHORT).show();
-                        break;
+                        message("Java");
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Java" , typeOfData);
+                         break;
 
                     case R.id.id_dbms_bk:
-                        Toast.makeText(CseBranchActivity2.this, "dbms book", Toast.LENGTH_SHORT).show();
+                        message("Dbms");
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Dbms" , typeOfData);
                         break;
 
                     case R.id.id_dot_net_bk:
-                        Toast.makeText(CseBranchActivity2.this, "dot net book", Toast.LENGTH_SHORT).show();
+                        message("Dot net");
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Dot net" , typeOfData);
                         break;
 
                     case R.id.id_mec_bk:
-                        Toast.makeText(CseBranchActivity2.this, "mec book", Toast.LENGTH_SHORT).show();
+                        message("Mec");
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Mec" , typeOfData);
                         break;
 
                     case R.id.id_cn_bk:
-                        Toast.makeText(CseBranchActivity2.this, "networking book", Toast.LENGTH_SHORT).show();
+                        message("Networking");
+                        sendUserToGeneralNotesActivity(semisterName , branchName ,"Networking" , typeOfData);
                         break;
 
 
@@ -171,11 +175,17 @@ public class CseBranchActivity2 extends AppCompatActivity {
         popupMenu.show();
     }
 
+    public void message(String str)
+    {
+        Toast.makeText(getApplicationContext(), "" + str, Toast.LENGTH_SHORT).show();
+    }
 
-    private void sendUserToGeneralNotesActivity(String semisterName , String branchName, String subjectName) {
+
+    private void sendUserToGeneralNotesActivity(String semisterName , String branchName, String subjectName , String type) {
         Intent intent = new Intent(getApplicationContext() , GeneralNotesActivity.class);
         intent.putExtra("subjectName", subjectName);
         intent.putExtra("semisterName" , semisterName);
+        intent.putExtra("type" , type);
         intent.putExtra("branchName", branchName);
         startActivity(intent);
 
