@@ -259,36 +259,36 @@ public class GroupChatActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
-            case R.id.id_group_info:
-                Toast.makeText(this,
-                        "group info", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.id_group_wallpaper:
-                Toast.makeText(this,
-                        "change wallpaper", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.id_clear_chat:
-                Toast.makeText(this,
-                        "clear caht ", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.id_exit_group:
-                Toast.makeText(this,
-                        "exit group", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.id_more_group:
-                Toast.makeText(this,
-                        "more", Toast.LENGTH_SHORT).show();
-                break;
-        }
-
-        return true;
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId())
+//        {
+//            case R.id.id_group_info:
+//                Toast.makeText(this,
+//                        "group info", Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case R.id.id_group_wallpaper:
+//                Toast.makeText(this,
+//                        "change wallpaper", Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case R.id.id_clear_chat:
+//                Toast.makeText(this,
+//                        "clear caht ", Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case R.id.id_exit_group:
+//                Toast.makeText(this,
+//                        "exit group", Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case R.id.id_more_group:
+//                Toast.makeText(this,
+//                        "more", Toast.LENGTH_SHORT).show();
+//                break;
+//        }
+//
+//        return true;
+//    }
 }

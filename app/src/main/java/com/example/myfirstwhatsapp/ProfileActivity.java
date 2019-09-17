@@ -574,26 +574,27 @@ public class ProfileActivity extends AppCompatActivity {
         return true ;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        switch (item.getItemId())
+//        {
+//
+//            case R.id.send_message_id:
+//                Toast.makeText(this, "send message", Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case R.id. id_unfriend:
+//                Toast.makeText(this,
+//                        "unfriend", Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case R.id.id_block:
+//                Toast.makeText(this, "Block", Toast.LENGTH_SHORT).show();
+//                break;
+//
+//        }
+//        return true;
+//    }
 
-        switch (item.getItemId())
-        {
-
-            case R.id.send_message_id:
-                Toast.makeText(this, "send message", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id. id_unfriend:
-                Toast.makeText(this,
-                        "unfriend", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.id_block:
-                Toast.makeText(this, "Block", Toast.LENGTH_SHORT).show();
-                break;
-
-        }
-        return true;
-    }
 }

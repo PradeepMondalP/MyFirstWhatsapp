@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.example.myfirstwhatsapp.general.GeneralNotesActivity;
 
 public class CseBranchActivity2 extends AppCompatActivity {
     private String branchName ,semisterName;
+    private Button popupDisplayBtn;
     private Toolbar mToolbar;
     private ListView listView;
     private ArrayAdapter<String > adapter;
@@ -37,12 +39,13 @@ public class CseBranchActivity2 extends AppCompatActivity {
 
         branchName = getIntent().getStringExtra("branchName");
         semisterName = getIntent().getStringExtra("semisterName");
+        popupDisplayBtn = (Button)findViewById(R.id.id_popup_btn);
 
         mToolbar = (Toolbar)findViewById(R.id.id_bbb22);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(semisterName +" -> " +branchName );
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    //    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+   //     getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         listView = (ListView)findViewById(R.id.id_selct_subj);
         adapter = new ArrayAdapter<>(getApplicationContext()
@@ -62,15 +65,15 @@ public class CseBranchActivity2 extends AppCompatActivity {
                 switch (item)
                 {
                     case "Notes":
-                         openPopupMenuForNotes(R.menu.fifth_sem_subject_menu);
+                         openPopupMenuForNotes(R.menu.fifth_sem_subject_menu );
                           break;
 
                     case "Assignments":
-                        openPopupMenuForNotes(R.menu.assignments_menu);
+                        openPopupMenuForNotes(R.menu.assignments_menu );
                         break;
 
                     case "Books":
-                        openPopupMenuForNotes(R.menu.fifth_sem_cs_books_menu);
+                        openPopupMenuForNotes(R.menu.fifth_sem_cs_books_menu );
                         break;
 
                     case "QuestionPapers":
@@ -83,8 +86,8 @@ public class CseBranchActivity2 extends AppCompatActivity {
     }
 
 
-    private void openPopupMenuForNotes(int fifth_sem_subject_menu) {
-        PopupMenu popupMenu = new PopupMenu(getApplicationContext() , listView);
+    private void openPopupMenuForNotes(int fifth_sem_subject_menu ) {
+        PopupMenu popupMenu = new PopupMenu(getApplicationContext(), popupDisplayBtn   );
 
         popupMenu.inflate(fifth_sem_subject_menu );
 
@@ -164,7 +167,7 @@ public class CseBranchActivity2 extends AppCompatActivity {
                 return true;
             }
         });
-        popupMenu.setGravity(Gravity.FILL_VERTICAL);
+
         popupMenu.show();
     }
 

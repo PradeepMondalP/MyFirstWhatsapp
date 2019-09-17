@@ -93,14 +93,9 @@
             android:background="@color/chat_view_separator"
             android:layout_below="@id/userIV"
             android:layout_toRightOf="@id/userIV"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             />
 
-
     </LinearLayout>
-
-
 
 </LinearLayout>

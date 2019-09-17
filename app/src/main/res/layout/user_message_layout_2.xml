@@ -45,11 +45,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/receiver_message_text_2"
-            android:layout_marginTop="-1dp"
+            android:layout_marginTop="1dp"
             android:text="10:45 PM"
             android:layout_marginStart="17dp"
             android:textSize="12sp"
-
             />
 
         <ImageView

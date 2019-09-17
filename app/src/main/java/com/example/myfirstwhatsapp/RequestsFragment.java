@@ -128,8 +128,6 @@ public class RequestsFragment extends Fragment {
                                                       Picasso.with(getContext()).load(retrieveProfileImage)
                                                               .placeholder(R.drawable.profile).into(holder.profileImagee);
 
-
-
                                                   }
                                                   else
                                                   {
@@ -155,7 +153,7 @@ public class RequestsFragment extends Fragment {
                                              @Override
                                              public void onClick(View v) {
 
-                                                 mDialog.setTitle("Request accepted.....");
+                                                 mDialog.setTitle("Request accepting.....");
                                                  mDialog.setCanceledOnTouchOutside(false);
                                                  mDialog.show();
 
@@ -291,8 +289,6 @@ public class RequestsFragment extends Fragment {
         myRequestList.setAdapter(obj);
         obj.startListening();
     }
-
-
 
 
     public static class RequestsHolder extends RecyclerView.ViewHolder

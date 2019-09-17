@@ -68,7 +68,7 @@ public class ChatActivity extends AppCompatActivity {
     private ImageView imageViewBackground;
 
     private static final int GalleryPix =1;
-    private ImageButton sendFileBtn;
+    private ImageButton sendImageBtn  , sendFileBtn , sendImogiBtn;
     private EditText inputMessage;
     private FloatingActionButton sendMessageButton;
 
@@ -121,6 +121,16 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 openAllTytpesOfFiles();
 
+            }
+        });
+
+
+        sendImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                checkerFile = "image";
+                openGallery();
             }
         });
 
@@ -250,7 +260,9 @@ public class ChatActivity extends AppCompatActivity {
 
 
         imageViewBackground = (ImageView)findViewById(R.id.id_my_chat_activity_background);
-        sendFileBtn = (ImageButton)findViewById(R.id.id_selct_file_btn);
+        sendImageBtn = (ImageButton)findViewById(R.id.id_selct_image_btn);
+        sendFileBtn = (ImageButton)findViewById(R.id.id_select_file_btn);
+        sendImogiBtn = (ImageButton)findViewById(R.id.id_emoji_id);
         receiverName  =(TextView)findViewById(R.id.id_custom_profile_name);
         receiverDP = (CircleImageView)findViewById(R.id.id_custom_profile_image);
         reciverLastSeen = (TextView)findViewById(R.id.id_custom_user_last_seen);
@@ -439,7 +451,6 @@ public class ChatActivity extends AppCompatActivity {
     {
         CharSequence options[] = new CharSequence[]
                 {
-                        "image",
                         " PDF file" ,
                         "other documents"
 
@@ -450,18 +461,14 @@ public class ChatActivity extends AppCompatActivity {
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int pos) {
+
                 if(pos==0)
-                {
-                     checkerFile = "image";
-                     openGallery();
-                }
-                if(pos==1)
                 {
                       checkerFile = "pdf";
                       openGalleryForFiles("pdf");
 
                 }
-                if(pos==2)
+                if(pos==1)
                 {
                      checkerFile="docx";
                      openGalleryForFiles("msword");
@@ -488,7 +495,6 @@ public class ChatActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent , "select the file") , 438);
 
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
