@@ -56,8 +56,6 @@ public class Activity_During_Sending_Image_Activity extends AppCompatActivity {
 
         initialize();
 
-
-
        sendImageBtn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -66,10 +64,6 @@ public class Activity_During_Sending_Image_Activity extends AppCompatActivity {
            }
        });
     }
-
-
-
-
 
 
     private void savingInformationToDatabase() {

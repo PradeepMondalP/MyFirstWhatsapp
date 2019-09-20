@@ -84,35 +84,6 @@ public class GroupsFragment extends Fragment {
 
     }
 
-//    private void retrieveAndDisplayGroups() {
-//
-//        groupRef.keepSynced(true);
-//
-//     groupRef.addValueEventListener(new ValueEventListener() {
-//         @Override
-//         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//             Set<String> set = new HashSet<>();
-//             Iterator iterator = dataSnapshot.getChildren().iterator();
-//
-//             while (iterator.hasNext())
-//             {
-//                 set.add( ( (DataSnapshot)iterator.next() ) .getKey() );
-//             }
-//             list_of_groups.clear();
-//             list_of_groups.addAll(set);
-//             arrayAdapter.notifyDataSetChanged();
-//         }
-//
-//         @Override
-//         public void onCancelled(@NonNull DatabaseError databaseError) {
-//             Toast.makeText(getContext(),
-//                     "could load groups", Toast.LENGTH_SHORT).show();
-//
-//         }
-//     });
-//    }
-
     public void retrieveAndDisplayGroups()
     {
         groupRef.keepSynced(true);
