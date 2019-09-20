@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pdfviewer.PdfViewerActivity2">
+
+    <include
+        layout="@layout/app_bar_layout"
+        android:id="@+id/id_pdf_view_2_toolbar"/>
+
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/id_pdf_view2"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+       android:layout_below="@+id/id_pdf_view_2_toolbar"
+        android:layout_height="match_parent">
+
+    </com.github.barteksc.pdfviewer.PDFView>
+
+    <TextView
+        android:id="@+id/id_text_1"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

@@ -30,7 +30,6 @@ public class TabsAccessAdapter extends FragmentPagerAdapter {
                 RequestsFragment requestsFragment  = new RequestsFragment();
                 return  requestsFragment;
 
-
               default: return  null;
         }
     }
