@@ -52,6 +52,7 @@ public class GroupChatActivity extends AppCompatActivity {
     private final List<GroupMessages> myList = new ArrayList<>();
     GroupMessageAdapter myAdapter;
 
+    private OnlineUserStatus obbj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,52 +76,34 @@ public class GroupChatActivity extends AppCompatActivity {
         });
 
         displayAllMessages();
-        updateUserStatus("online");
+        obbj.updateTheStatus("online");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        updateUserStatus("online");
+        obbj.updateTheStatus("online");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        updateUserStatus("online");
+        obbj.updateTheStatus("online");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        updateUserStatus("online");
+        obbj.updateTheStatus("online");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        updateUserStatus("offline");
+        obbj.updateTheStatus("offline");
     }
 
-    public void updateUserStatus(String state)
-    {
-        SimpleDateFormat date = new SimpleDateFormat("MMM dd,yyyy");
-       String saveCurrentDate = date.format(Calendar.getInstance().getTime());
-       DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-
-        SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
-      String  saveCurrentTime = time.format(Calendar.getInstance().getTime());
-
-        Map map = new HashMap();
-        map.put("time" , saveCurrentTime);
-        map.put("date" , saveCurrentDate);
-        map.put("type" , state);
-
-        DatabaseReference userRef = rootRef.child("Users").child(currentUserID).child("userState");
-
-        userRef.updateChildren(map);
-    }
 
     
     private void initialize() {
@@ -147,6 +130,8 @@ public class GroupChatActivity extends AppCompatActivity {
         myAdapter= new GroupMessageAdapter(myList);
         myRecyclerView.setAdapter(myAdapter);
 
+
+        obbj = new OnlineUserStatus();
     }
 
 

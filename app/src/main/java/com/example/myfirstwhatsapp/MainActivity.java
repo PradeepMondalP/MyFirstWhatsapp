@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
         myTablayout = (TabLayout) findViewById(R.id.id_mainAct_tab_layout);
 
         // use  the below two lines when more tab layout
-     //   myTablayout.setTabGravity(TabLayout.GRAVITY_CENTER);
-     //   myTablayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        //   myTablayout.setTabGravity(TabLayout.GRAVITY_CENTER);
+        //   myTablayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         myTablayout.setupWithViewPager(myViewPager);
 
 
@@ -200,8 +200,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.id_notes:
-                 sendUserToSemisterSelectionActivity();
-                 break;
+                sendUserToSemisterSelectionActivity();
+                break;
 
         }
         return true;
@@ -231,8 +231,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
 
-              .setNegativeButton("cancel" , null)
-              .setCancelable(false);
+                .setNegativeButton("cancel" , null)
+                .setCancelable(false);
         builder.show();
     }
 
@@ -312,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
     public void sendUserToTheSettingActivity()
     {
         Intent obj = new Intent(this , SettingActivity.class);
-     //   obj.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //   obj.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(obj);
         finish();
     }

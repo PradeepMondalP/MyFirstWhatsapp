@@ -40,7 +40,8 @@ public class RequestsFragment extends Fragment {
     private View requestFragmentView;
     private RecyclerView myRequestList;
     private String currentUserID;
-    private DatabaseReference chatRequestsRef  , userRef  ,rootRef  , contactsRef  , chatRequestRef22  , contactRef22  ,chatRequestRef33;
+    private DatabaseReference chatRequestsRef  , userRef  ,rootRef  , contactsRef
+            , chatRequestRef22  , contactRef22  ,chatRequestRef33;
     private FirebaseAuth mAuth;
     private ProgressDialog mDialog;
 
@@ -62,7 +63,9 @@ public class RequestsFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
-        chatRequestsRef = FirebaseDatabase.getInstance().getReference().child("Chat Requests").child(currentUserID);
+        chatRequestsRef = FirebaseDatabase.getInstance().getReference()
+                .child("Chat Requests").child(currentUserID);
+
         userRef         =FirebaseDatabase.getInstance().getReference().child("Users");
         rootRef = FirebaseDatabase.getInstance().getReference();
         contactsRef = FirebaseDatabase.getInstance().getReference().child("Contacts");
@@ -407,7 +410,6 @@ public class RequestsFragment extends Fragment {
                                         }
                                     });
                                 }
-
                             }
                         });
 

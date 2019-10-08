@@ -50,14 +50,28 @@ public class SemisterSelectionActivity extends AppCompatActivity {
 
                 int pos =  position;
                 String itemName = (String)listView.getItemAtPosition(pos);
-                if(itemName.equals("Semister 5"))
+
+                switch (itemName)
                 {
-                    sendUserToFifthSem(itemName);
-                }
-                else
-                {
-                    Toast.makeText(SemisterSelectionActivity.this,
-                            itemName, Toast.LENGTH_SHORT).show();
+                    case "Semister 1":
+                        sendUserToFifthSem(itemName);  break;
+                    case "Semister 2":
+                        sendUserToFifthSem(itemName);  break;
+                    case "Semister 3":
+                        sendUserToFifthSem(itemName);  break;
+                    case "Semister 4":
+                        sendUserToFifthSem(itemName);  break;
+                    case "Semister 5":
+                        sendUserToFifthSem(itemName);  break;
+                    case "Semister 6":
+                        sendUserToFifthSem(itemName);  break;
+                    case "Semister 7":
+                        sendUserToFifthSem(itemName);  break;
+                    case "Semister 8":
+                        sendUserToFifthSem(itemName);  break;
+
+
+
                 }
             }
         });
@@ -66,7 +80,6 @@ public class SemisterSelectionActivity extends AppCompatActivity {
     private void sendUserToFifthSem(String itemName) {
         Toast.makeText(this,
                 "welcome to 5th sem", Toast.LENGTH_SHORT).show();
-
         sendUserToFifthSemActivity(itemName);
     }
 

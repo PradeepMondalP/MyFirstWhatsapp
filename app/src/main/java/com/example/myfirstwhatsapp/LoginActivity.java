@@ -35,6 +35,8 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
 
+    private OnlineUserStatus obb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this,
                                         "welcome ", Toast.LENGTH_SHORT).show();
                                 sendUserToMainActivity();
-                                updateUserStatus("online");
+                                obb.updateTheStatus("online");
                             }else
                             {
                                mDialog.dismiss();
@@ -109,26 +111,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         }
-
-    public void updateUserStatus(String state)
-    {
-        SimpleDateFormat date = new SimpleDateFormat("MMM dd,yyyy");
-        String saveCurrentDate = date.format(Calendar.getInstance().getTime());
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-
-        SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
-        String  saveCurrentTime = time.format(Calendar.getInstance().getTime());
-        String  currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        Map map = new HashMap();
-        map.put("time" , saveCurrentTime);
-        map.put("date" , saveCurrentDate);
-        map.put("type" , state);
-
-        DatabaseReference userRef = rootRef.child("Users").child(currentUserID).child("userState");
-
-        userRef.updateChildren(map);
-    }
 
 
     @Override
@@ -166,6 +148,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mDialog = new ProgressDialog(this);
+
+        obb = new OnlineUserStatus();
 
 
     }

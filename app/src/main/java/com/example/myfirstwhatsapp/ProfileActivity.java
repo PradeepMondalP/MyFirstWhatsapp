@@ -43,6 +43,8 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ProgressDialog mDialog;
 
+    private OnlineUserStatus obbj;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,56 +54,36 @@ public class ProfileActivity extends AppCompatActivity {
 
         retrieveUserInfo();
 
-        updateUserStatus("online");
+        obbj.updateTheStatus("online");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        updateUserStatus("online");
+        obbj.updateTheStatus("online");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        updateUserStatus("online");
+        obbj.updateTheStatus("online");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        updateUserStatus("online");
+        obbj.updateTheStatus("online");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
 
-        updateUserStatus("offline");
+        obbj.updateTheStatus("offline");
     }
 
-
-    public void updateUserStatus(String state)
-    {
-        SimpleDateFormat date = new SimpleDateFormat("MMM dd,yyyy");
-        String saveCurrentDate = date.format(Calendar.getInstance().getTime());
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        String  currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
-        String  saveCurrentTime = time.format(Calendar.getInstance().getTime());
-
-        Map map = new HashMap();
-        map.put("time" , saveCurrentTime);
-        map.put("date" , saveCurrentDate);
-        map.put("type" , state);
-
-        DatabaseReference userRef = rootRef.child("Users").child(currentUserID).child("userState");
-
-        userRef.updateChildren(map);
-    }
 
 
     private void initializing()
@@ -134,6 +116,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         currentUserID = mAuth.getCurrentUser().getUid();
 
+        obbj = new OnlineUserStatus();
 
     }
 
@@ -573,28 +556,4 @@ public class ProfileActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.profile_activity_menu , menu);
         return true ;
     }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        switch (item.getItemId())
-//        {
-//
-//            case R.id.send_message_id:
-//                Toast.makeText(this, "send message", Toast.LENGTH_SHORT).show();
-//                break;
-//
-//            case R.id. id_unfriend:
-//                Toast.makeText(this,
-//                        "unfriend", Toast.LENGTH_SHORT).show();
-//                break;
-//
-//            case R.id.id_block:
-//                Toast.makeText(this, "Block", Toast.LENGTH_SHORT).show();
-//                break;
-//
-//        }
-//        return true;
-//    }
-
 }

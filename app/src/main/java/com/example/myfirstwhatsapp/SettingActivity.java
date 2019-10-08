@@ -51,6 +51,8 @@ public class SettingActivity extends AppCompatActivity {
     private Uri imageUri  , resultUri ;
     private String downloadUrl ="null" ;
 
+    private OnlineUserStatus obbj;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +77,7 @@ public class SettingActivity extends AppCompatActivity {
 
        displayNameAndStatus();
 //
-       updateUserStatus("online");
+       obbj.updateTheStatus("online");
 
     }
 
@@ -85,55 +87,28 @@ public class SettingActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        updateUserStatus("online");
+        obbj.updateTheStatus("online");
 
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        updateUserStatus("online");
+        obbj.updateTheStatus("online");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        updateUserStatus("online");
+        obbj.updateTheStatus("online");
     }
 
 
-    //    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        updateUserStatus("offline");
-//
-//    }
-
-
-
-
-    public void updateUserStatus(String state)
-    {
-        SimpleDateFormat date = new SimpleDateFormat("MMM dd,yyyy");
-        String saveCurrentDate = date.format(Calendar.getInstance().getTime());
-
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-
-        SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
-        String  saveCurrentTime = time.format(Calendar.getInstance().getTime());
-        String  currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        Map map = new HashMap();
-        map.put("time" , saveCurrentTime);
-        map.put("date" , saveCurrentDate);
-        map.put("type" , state);
-
-        DatabaseReference userRef = rootRef.child("Users").child(currentUserID).child("userState");
-
-        userRef.updateChildren(map);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        obbj.updateTheStatus("offline");
     }
-
-
 
     private void displayNameAndStatus() {
         DatabaseReference dr2 = rootRef.child("Users").child(currentUserID);
@@ -359,6 +334,7 @@ public class SettingActivity extends AppCompatActivity {
 
         profileImageRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
 
+        obbj = new OnlineUserStatus();
     }
 
 

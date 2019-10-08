@@ -12,46 +12,26 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.*;
+import android.widget.*;
+
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.google.firebase.database.*;
+import com.google.firebase.storage.*;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -80,6 +60,7 @@ public class ChatActivity extends AppCompatActivity {
     private ProgressDialog mDialog;
     private Toolbar mToolbar;
 
+    private OnlineUserStatus obbj;
 
 
     @Override
@@ -88,8 +69,6 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         initialize();
-
-
 
         displayNameAndPhoto();
 
@@ -114,7 +93,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        updateUserStatus("online");
 
         sendFileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,10 +119,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-
-
-        updateUserStatus("online");
+        obbj.updateTheStatus("online");
     }
 
 
@@ -152,14 +127,14 @@ public class ChatActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        updateUserStatus("online");
+        obbj.updateTheStatus("online");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
 
-        updateUserStatus("online");
+        obbj.updateTheStatus("online");
     }
 
 
@@ -167,28 +142,10 @@ public class ChatActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        updateUserStatus("offline");
+        obbj.updateTheStatus("offline");
     }
 
-    public void updateUserStatus(String state)
-    {
-        SimpleDateFormat date = new SimpleDateFormat("MMM dd,yyyy");
-        String saveCurrentDate = date.format(Calendar.getInstance().getTime());
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 
-        SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
-        String  saveCurrentTime = time.format(Calendar.getInstance().getTime());
-        String  currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        Map map = new HashMap();
-        map.put("time" , saveCurrentTime);
-        map.put("date" , saveCurrentDate);
-        map.put("type" , state);
-
-        DatabaseReference userRef = rootRef.child("Users").child(currentUserID).child("userState");
-
-        userRef.updateChildren(map);
-    }
 
 
     private void displayAllMessages() {
@@ -287,6 +244,7 @@ public class ChatActivity extends AppCompatActivity {
         mDialog = new ProgressDialog(this);
 
 
+        obbj = new OnlineUserStatus();
     }
 
     private void displayNameAndPhoto()

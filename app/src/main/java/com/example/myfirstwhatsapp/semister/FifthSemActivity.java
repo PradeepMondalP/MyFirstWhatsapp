@@ -50,13 +50,27 @@ public class FifthSemActivity extends AppCompatActivity {
                 int pos = position;
                 String item = (String)listView.getItemAtPosition(pos);
 
-                if(item.equals("CSE"))
+
+
+                switch (item)
                 {
-                      sendUserToCseActivity(semisterName,item);
-                }
-                else {
-                    Toast.makeText(FifthSemActivity.this,
-                            item, Toast.LENGTH_SHORT).show();
+                    case "CSE":
+                        sendUserToCseActivity(semisterName,item);
+                        break;
+
+                    case "ISE":
+                        sendUserToCseActivity(semisterName,item);
+                        break;
+
+                    case "MECH":
+                        sendUserToCseActivity(semisterName,item);
+                        break;
+
+                    case "CIV":
+                        sendUserToCseActivity(semisterName,item);
+                        break;
+
+
                 }
             }
         });
