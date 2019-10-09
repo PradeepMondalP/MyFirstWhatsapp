@@ -6,12 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".SettingActivity">
 
+    <include
+        layout="@layout/app_bar_layout"
+        android:id="@+id/id_setting_act_toolBar"/>
 
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/id_settingAct_profile_image"
         android:layout_width="250dp"
         android:layout_marginTop="5dp"
+        android:layout_below="@+id/id_setting_act_toolBar"
         android:layout_centerHorizontal="true"
         android:src="@drawable/profile"
         android:layout_marginBottom="4dp"

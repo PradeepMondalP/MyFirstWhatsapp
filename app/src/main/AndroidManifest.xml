@@ -50,7 +50,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".PhoneLoginActivity" />
-        <activity android:name=".SettingActivity" />
+        <activity android:name=".SettingActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".FindFriendsActivity"
             android:parentActivityName=".MainActivity" />

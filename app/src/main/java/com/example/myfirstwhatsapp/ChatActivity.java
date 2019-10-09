@@ -203,9 +203,7 @@ public class ChatActivity extends AppCompatActivity {
     private void initialize() {
 
         mToolbar = (Toolbar)findViewById(R.id.id_abc) ;
-
         setSupportActionBar(mToolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ActionBar actionBar = getSupportActionBar();

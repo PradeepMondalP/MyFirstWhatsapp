@@ -3,6 +3,7 @@ package com.example.myfirstwhatsapp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -52,6 +53,7 @@ public class SettingActivity extends AppCompatActivity {
     private String downloadUrl ="null" ;
 
     private OnlineUserStatus obbj;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -322,6 +324,11 @@ public class SettingActivity extends AppCompatActivity {
 
 
     private void initialize() {
+        mToolbar = (Toolbar)findViewById(R.id.id_setting_act_toolBar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         profileImage = (CircleImageView)findViewById(R.id.id_settingAct_profile_image);
         userName = (EditText)findViewById(R.id.id_settingAct_full_name);
         userStatus = (EditText)findViewById(R.id.id_settingAct_status);

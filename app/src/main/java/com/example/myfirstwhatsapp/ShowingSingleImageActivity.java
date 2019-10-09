@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
@@ -33,6 +35,7 @@ public class ShowingSingleImageActivity extends AppCompatActivity {
     private DatabaseReference userRef;
     private String userID   ,userName;
     private OnlineUserStatus obbj;
+    private  boolean state = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,41 @@ public class ShowingSingleImageActivity extends AppCompatActivity {
 
         showImage();
         obbj.updateTheStatus("online");
+
+        profileDP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!state)
+                {
+                    mToolbar.setVisibility(View.VISIBLE);
+                    state = true;
+                }
+                else
+                {
+                    mToolbar.setVisibility(View.GONE);
+                    state =false;
+                }
+
+                if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+                {
+                    profileDP.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
+
+                }
+                else
+                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB)
+                {
+                    profileDP.setSystemUiVisibility(View.STATUS_BAR_HIDDEN);
+                }
+                else
+                {
+                    //.......
+                }
+
+            }
+        });
+
     }
 
 
@@ -123,4 +161,6 @@ public class ShowingSingleImageActivity extends AppCompatActivity {
 
         obbj = new OnlineUserStatus();
     }
+
+
 }
