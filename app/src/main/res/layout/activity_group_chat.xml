@@ -24,46 +24,74 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-
     <LinearLayout
         android:id="@+id/my_lilnear_layout"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:layout_alignParentStart="true"
         android:layout_width="match_parent"
-        android:background="?android:attr/selectableItemBackground"
-
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal"
+        android:layout_toStartOf="@+id/group_activty_send_mes_btn"
+        android:layout_margin="10dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/input"
         android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/id_emoji_id_of_grp_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_my_emoji"/>
+
 
         <EditText
             android:id="@+id/group_activity_message_text"
             android:layout_width="0dp"
             android:layout_weight="7"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="10dp"
             android:layout_margin="4dp"
             android:hint="type your message"
-            android:background="@drawable/input"
             android:padding="10dp"
             android:layout_height="wrap_content" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/group_activty_send_mes_btn"
+        <ImageButton
+            android:id="@+id/id_selct_image_btn_grp_act"
             android:layout_width="wrap_content"
-            android:clickable="true"
-            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_photo_camera_black_24dp"/>
+
+
+        <ImageButton
+            android:id="@+id/id_select_file_btn_grp_act"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            app:rippleColor="@android:color/holo_blue_light"
-            android:backgroundTint="#40E214"
-            app:elevation="6dp"
-            app:fabSize="normal"
-            app:srcCompat="@drawable/ic_send_message"
-            app:borderWidth="0dp"
-            android:layout_height="wrap_content" />
-
-
-
-
-
+            android:src="@drawable/ic_insert_drive_file_black_24dp"/>
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/group_activty_send_mes_btn"
+        android:layout_width="wrap_content"
+        android:clickable="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        app:rippleColor="@android:color/holo_blue_light"
+        android:backgroundTint="#40E214"
+        app:elevation="6dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        app:fabSize="auto"
+        app:srcCompat="@drawable/ic_send_message"
+        app:borderWidth="0dp"
+        android:layout_height="wrap_content" />
+
+
 
 </RelativeLayout>

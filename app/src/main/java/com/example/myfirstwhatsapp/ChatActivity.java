@@ -199,7 +199,6 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
-
     private void initialize() {
 
         mToolbar = (Toolbar)findViewById(R.id.id_abc) ;
