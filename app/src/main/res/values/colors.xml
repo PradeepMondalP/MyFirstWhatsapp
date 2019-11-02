@@ -28,5 +28,9 @@
 
 
 
+    <color name="mybackgroundofrecycler">#575761</color>
+
+    <color name="my_background">#6CDA46</color>
+
 
 </resources>

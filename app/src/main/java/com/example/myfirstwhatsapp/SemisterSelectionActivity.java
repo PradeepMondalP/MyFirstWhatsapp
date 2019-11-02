@@ -2,6 +2,8 @@ package com.example.myfirstwhatsapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,14 +14,30 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
+import com.example.myfirstwhatsapp.adapters.ImageAdapter;
 import com.example.myfirstwhatsapp.semister.FifthSemActivity;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class SemisterSelectionActivity extends AppCompatActivity {
 
-    private ListView listView;
-    ArrayAdapter<String> adapter;
-    String[] sem = {"Semister 1" , "Semister 2" ,"Semister 3" ,"Semister 4" ,"Semister 5"
-            ,"Semister 6"  , "Semister 7", "Semister 8"  };
+    int image [] =
+            {
+                    R.mipmap.one , R.mipmap.two ,
+                    R.mipmap.three , R.mipmap.four ,
+                    R.mipmap.five , R.mipmap.six ,
+                    R.mipmap.seven , R.mipmap.eight
+            };
+
+    List<String> list = Arrays.asList("Semister 1 ","Semister 2 ",
+            "Semister 3 ","Semister 4 "
+            ,"Semister 5 ","Semister 6 ",
+            "Semister 7 ","Semister 8 ");
+
+    private RecyclerView myRecyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private ImageAdapter adapter;
     private Toolbar mToolbar;
 
 
@@ -28,7 +46,6 @@ public class SemisterSelectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_semister_selection);
 
-        listView = (ListView)findViewById(R.id.id_all_sem_list);
 
         mToolbar = (Toolbar)findViewById(R.id.id_actBar_Ss);
         setSupportActionBar(mToolbar);
@@ -36,58 +53,35 @@ public class SemisterSelectionActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        adapter = new ArrayAdapter<>
-                (
-                        this ,android.R.layout.simple_list_item_1,android.R.id.text1, sem
-                );
 
-        listView.setAdapter(adapter);
-
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                int pos =  position;
-                String itemName = (String)listView.getItemAtPosition(pos);
-
-                switch (itemName)
-                {
-                    case "Semister 1":
-                        sendUserToFifthSem(itemName);  break;
-                    case "Semister 2":
-                        sendUserToFifthSem(itemName);  break;
-                    case "Semister 3":
-                        sendUserToFifthSem(itemName);  break;
-                    case "Semister 4":
-                        sendUserToFifthSem(itemName);  break;
-                    case "Semister 5":
-                        sendUserToFifthSem(itemName);  break;
-                    case "Semister 6":
-                        sendUserToFifthSem(itemName);  break;
-                    case "Semister 7":
-                        sendUserToFifthSem(itemName);  break;
-                    case "Semister 8":
-                        sendUserToFifthSem(itemName);  break;
-
-
-
-                }
-            }
-        });
-    }
-
-    private void sendUserToFifthSem(String itemName) {
-        Toast.makeText(this,
-                "welcome to 5th sem", Toast.LENGTH_SHORT).show();
-        sendUserToFifthSemActivity(itemName);
-    }
-
-    private void sendUserToFifthSemActivity(String itemName) {
-
-        Intent obj = new Intent(getApplicationContext() , FifthSemActivity.class);
-        obj.putExtra("semName" , itemName);
-        startActivity(obj);
+        initialization();
+        addTheImagesToTheRecycler();
 
     }
+
+    private void initialization() {
+        myRecyclerView = (RecyclerView)findViewById(R.id.id_recyclerView);
+        layoutManager = new GridLayoutManager(this ,2);
+        adapter = new ImageAdapter(image , list);
+    }
+
+    private void addTheImagesToTheRecycler() {
+
+        myRecyclerView.setLayoutManager(layoutManager);
+        myRecyclerView.setHasFixedSize(true);
+        myRecyclerView.setAdapter(adapter);
+    }
+//    private void sendUserToFifthSem(String itemName) {
+//        Toast.makeText(this,
+//                "welcome to 5th sem", Toast.LENGTH_SHORT).show();
+//        sendUserToFifthSemActivity(itemName);
+//    }
+//
+//    private void sendUserToFifthSemActivity(String itemName) {
+//
+//        Intent obj = new Intent(getApplicationContext() , FifthSemActivity.class);
+//        obj.putExtra("semName" , itemName);
+//        startActivity(obj);
+//
+//    }
 }

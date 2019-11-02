@@ -12,16 +12,15 @@
         layout="@layout/app_bar_layout"
         android:id="@+id/id_actBar_Ss"/>
 
-    <ListView
-        android:id="@+id/id_all_sem_list"
-        android:layout_below="@+id/id_actBar_Ss"
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/id_recyclerView"
         android:layout_width="match_parent"
-        android:divider="#A5A1A1"
-        android:padding="10dp"
-        android:listSelector="#cccdd4"
-        android:dividerHeight="2dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/mybackgroundofrecycler"
+        android:layout_below="@+id/id_actBar_Ss"
         android:layout_height="match_parent">
 
-    </ListView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>
