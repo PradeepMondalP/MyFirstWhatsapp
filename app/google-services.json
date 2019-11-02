@@ -45,6 +45,43 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:226207154360:android:2147f2f817ef104667344d",
+        "android_client_info": {
+          "package_name": "com.example.notesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "226207154360-guqfd9pq7frlu0dngvgja1c3c0vadggh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.notesapp",
+            "certificate_hash": "881566f9cc2db394cb5b20e15547d342768f60a9"
+          }
+        },
+        {
+          "client_id": "226207154360-r6mc75aqfcgjq3dmiu4glcsnlhe8poqm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0uq8Q1uOnQgfs_Wd9B6UAOOTf1_FXe0E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "226207154360-r6mc75aqfcgjq3dmiu4glcsnlhe8poqm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:226207154360:android:a8d23d7bc2494f27",
         "android_client_info": {
           "package_name": "com.example.repeating_final_project_1"

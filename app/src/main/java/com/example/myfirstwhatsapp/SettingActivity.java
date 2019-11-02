@@ -229,23 +229,22 @@ public class SettingActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
-        if(requestCode==GalleryPix && resultCode ==RESULT_OK
-                && data!=null && data.getData()!=null) {
+        if(requestCode== GalleryPix && resultCode == RESULT_OK
+                && data!=null  && data.getData()!=null) {
              imageUri = data.getData();
 
             // now i want to crop the image
             CropImage.activity()
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .setAspectRatio(1, 1)
-                    .start(this);
+                    .start(this) ;
         }
 
-        if(  requestCode==CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
-        {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+        if ( requestCode==CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE ) {
 
-            if(resultCode == RESULT_OK)
+            CropImage.ActivityResult result = CropImage.getActivityResult(data) ;
+
+            if( resultCode == RESULT_OK )
             {
                 mDialog.setTitle("Profile Image");
                 mDialog.setMessage("Please wait while upadating ur profile image....");
@@ -265,9 +264,8 @@ public class SettingActivity extends AppCompatActivity {
                         {
                             @Override
                             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                if(task.isSuccessful()) {
 
-                                if(task.isSuccessful())
-                                {
                                     mDialog.dismiss();
 
                                     //  getting the image url and saving it to the
@@ -282,32 +280,9 @@ public class SettingActivity extends AppCompatActivity {
                                                       downloadUrl = uri.toString();
 
                                                       mDialog.dismiss();
-                                                    // saving the url in the database and confirming it
-                               //  DatabaseReference userRef =rootRef.child("Users").child(currentUserID)
-                                //                          .child("images");
-
-//                                                  userRef.setValue(downloadUrl).addOnCompleteListener(
-//                                                          new OnCompleteListener<Void>() {
-//                                                              @Override
-//                                             public void onComplete(@NonNull Task<Void> task) {
-//                                                                  if(task.isSuccessful()) {
-//
-//                                                                  }
-//                                                                  else
-//                                                                  {
-//                                                                      Toast.makeText(SettingActivity.this,
-//                                                                              "couldnt upld to imag to db",
-//                                                                              Toast.LENGTH_SHORT).show();
-//                                                                      mDialog.dismiss();
-//                                                                  }
-//
-//                                                              }
-//                                                          }
-//                                                  );
 
                                                 }
-                                            }) ;
-                                }
+                                            }) ; }
                             }
                         });
             }
